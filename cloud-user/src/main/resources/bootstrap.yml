@@ -1,0 +1,108 @@
+consul.ip: 127.0.0.1
+datasource.ip: 127.0.0.1
+redis.ip: 127.0.0.1
+
+#定义端口
+server:
+  port: 7200
+
+#定义应用名
+spring:
+  application:
+    name: cloud-user
+  datasource:
+    url: jdbc:mysql://${datasource.ip}:3306/cloud-module?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  cloud:
+    consul:
+      host: ${consul.ip}
+      port: 8500
+      discovery:
+        # 启用服务发现
+        enabled: true
+        # 启用服务注册
+        register: true
+        # 服务停止时取消注册
+        deregister: true
+        # 表示注册时使用IP而不是hostname
+        prefer-ip-address: true
+        # 执行监控检查的频率
+        health-check-interval: 30s
+        # 设置健康检查失败多长时间后，取消注册
+        health-check-critical-timeout: 30s
+        # 健康检查的路径
+        health-check-path: /actuator/health
+        # 服务注册标识，格式为：应用名称+服务器IP+端口
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        # 注册到consul的服务名称
+        service-name: ${spring.application.name}
+
+  #防止Date类型返到前端是时间戮
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  # redis缓存
+  redis:
+    host: ${redis.ip}
+    database: 0
+    port: 6379
+    password:
+
+#整合mybatis
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+#logging日志
+logging:
+  level:
+    com.project: DEBUG
+
+##actuator监控，暴露所有端点，访问时需加前缀，/actuator/env
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+#feign数据压缩处理
+feign:
+  compression:
+    request:
+      mime-types:       # 可以被压缩的类型
+        - text/xml
+        - application/xml
+        - application/json
+      min-request-size: 2048 # 超过2048的字节进行压缩
+  hystrix:
+    enabled: true    #服务降级需要加上此处
+
+#ribbon超时配置
+ribbon:
+  ConnectTimeout: 60000     #ribbon请求连接的超时时间
+  ReadTimeout: 60000          #请求处理的超时时间
+  MaxAutoRetries: 1         #对第一次请求的服务的重试次数
+  MaxAutoRetriesNextServer: 1  #要重试的下一个服务的最大数量（不包括第一个服务）
+  OkToRetryOnAllOperations: true
+
+#hystrix超时配置
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
