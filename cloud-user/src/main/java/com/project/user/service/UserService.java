@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService extends BaseService<UserEntity, UserDao> {
     //模拟存在一个admin用户
-    public UserRoleVO getAccountName(String accountName){
+    public UserRoleVO getByAccountName(String accountName){
         if("admin".equals(accountName)){
             UserRoleVO userEntity = new UserRoleVO();
             userEntity.setId("123");
@@ -31,7 +31,9 @@ public class UserService extends BaseService<UserEntity, UserDao> {
             userEntity.setAccountName("admin");
             userEntity.setDeleteFlag(0);
             RoleEntity roleEntity = new RoleEntity();
+            roleEntity.setId("5");
             roleEntity.setEnName("SIMPLE_USER");
+            roleEntity.setCnName("普通用户");
             userEntity.setRoleList(Lists.newArrayList(roleEntity));
             userEntity.setPassword(BCryptUtils.encode("123456"));
             return userEntity;

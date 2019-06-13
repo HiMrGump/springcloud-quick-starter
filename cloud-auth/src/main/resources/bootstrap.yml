@@ -37,6 +37,18 @@ spring:
         # 注册到consul的服务名称
         service-name: ${spring.application.name}
 
+  thrift:
+    client:
+      package-to-scan: com.project.auth.thrift # 标记有注解@ThriftClient接口的包路径
+      service-model: hsHa
+      pool:
+        retry-times: 3
+        pool-max-total-per-key: 200
+        pool-min-idle-per-key: 10
+        pool-max-idle-per-key: 40
+        pool-max-wait: 1000
+        connect-timeout: 100000
+
   #防止Date类型返到前端是时间戮
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

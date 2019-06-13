@@ -2,8 +2,12 @@ package com.project.auth.security;
 
 import com.project.auth.dto.UserDTO;
 import com.project.auth.feign.UserServiceClient;
+import com.project.auth.thrift.ThriftUserServiceClient;
 import com.project.auth.util.FeignUtils;
+import com.project.thrift.entity.ThriftUserRoleVO;
+import com.project.util.BeanUtils;
 import com.project.util.ResponseResult;
+import org.apache.thrift.TException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,11 +25,11 @@ import javax.annotation.Resource;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    @Resource
-    BCryptPasswordEncoder passwordEncoder;
+   /* @Resource
+    UserServiceClient userServiceClient;*/
 
-    @Resource
-    UserServiceClient userServiceClient;
+   @Resource
+   ThriftUserServiceClient userServiceClient;
 
     /**
      * 通过 Username 加载用户详情
@@ -36,17 +40,17 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("登陆：" + username);
-        ResponseResult responseResult = userServiceClient.findUserByUsername(username);
-        System.out.println(responseResult);
-        if(FeignUtils.isRequestFail(responseResult)){
-            throw new UsernameNotFoundException("找不到用户,请重试");
+        try {
+            ThriftUserRoleVO thrifrUserRoleVO = userServiceClient.client().getByAccountName(username);
+            if(thrifrUserRoleVO == null){
+                throw new UsernameNotFoundException("找不到用户,请重试");
+            }
+            UserDTO userDTO = BeanUtils.copyBean(thrifrUserRoleVO, UserDTO.class);
+            return build(userDTO);
+        } catch (TException e) {
+            e.printStackTrace();
         }
-        UserDTO userDTO = FeignUtils.packageUserVO(responseResult);
-        if(userDTO == null){
-            throw new UsernameNotFoundException("找不到用户,请重试");
-        }
-        return build(userDTO);
+        throw new UsernameNotFoundException("找不到用户,请重试");
     }
 
     private MyUserDetails build( UserDTO userDTO ){

@@ -21,9 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/public")
 public class PublicController extends BaseController<UserEntity, UserService> {
+
     //开放的接口
     @GetMapping("/getUserByAccountName/{accountName}")
     public ResponseResult getByAccountName(@PathVariable("accountName") String accountName){
-        return ResponseResult.success(service.getAccountName(accountName));
+        return ResponseResult.success(service.getByAccountName(accountName));
     }
 }

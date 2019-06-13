@@ -23,7 +23,7 @@ public class UserController extends BaseController<UserEntity,UserService> {
     //被保护的接口
     @GetMapping("/getByAccountName/{accountName}")
     public ResponseResult getByAccountName(@PathVariable("accountName") String accountName){
-        return ResponseResult.success(service.getAccountName(accountName));
+        return ResponseResult.success(service.getByAccountName(accountName));
     }
     //获取jwt,从中可以得到用户数据
     @RequestMapping("/currentLogin")

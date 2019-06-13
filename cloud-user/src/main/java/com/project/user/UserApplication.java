@@ -1,5 +1,6 @@
 package com.project.user;
 
+import io.ostenant.rpc.thrift.server.annotation.EnableThriftServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -16,6 +17,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 
 @EnableDiscoveryClient
+@EnableThriftServer
 @EnableFeignClients
 @SpringBootApplication
 public class UserApplication {

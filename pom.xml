@@ -7,6 +7,7 @@
         <module>cloud-common</module>
         <module>cloud-auth</module>
         <module>cloud-user</module>
+        <module>cloud-thrift</module>
     </modules>
 
     <parent>
@@ -37,12 +38,14 @@
         <alibaba.druid>1.1.14</alibaba.druid>
         <commons-lang3>3.8.1</commons-lang3>
         <redis.version>2.1.4.RELEASE</redis.version>
-
+        <okhttp.version>3.12.1</okhttp.version>
         <quartz.version>2.3.1</quartz.version>
         <rocketmq.version>2.0.2</rocketmq.version>
         <jackson.version>2.9.8</jackson.version>
         <guava.version>27.0.1-jre</guava.version>
         <mybatisplus.version>3.1.0</mybatisplus.version>
+        <libthrift>0.12.0</libthrift>
+        <spring-cloud.thrift>2.0.0</spring-cloud.thrift>
     </properties>
 
 
@@ -125,14 +128,6 @@
                 <artifactId>jjwt-api</artifactId>
                 <version>${jsonwebtoken-api}</version>
             </dependency>
-            <!-- json转换 -->
-            <dependency>
-                <groupId>net.sf.json-lib</groupId>
-                <artifactId>json-lib</artifactId>
-                <version>${sf.json-lib}</version>
-                <classifier>jdk15</classifier>
-            </dependency>
-
             <!-- alibaba JSON库 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -164,6 +159,31 @@
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq.version}</version>
             </dependency>
+
+            <!-- Thrift -->
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${libthrift}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ostenant.rpc.thrift</groupId>
+                <artifactId>spring-cloud-starter-thrift-server</artifactId>
+                <version>${spring-cloud.thrift}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.ostenant.rpc.thrift</groupId>
+                <artifactId>spring-cloud-starter-thrift-client</artifactId>
+                <version>${spring-cloud.thrift}</version>
+            </dependency>
+
+            <!-- okhttp for Thrift -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
