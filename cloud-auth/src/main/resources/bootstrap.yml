@@ -10,8 +10,11 @@ server:
 spring:
   application:
     name: cloud-auth
-  main:
-    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://${datasource.ip}:3306/cloud-module?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driverClassName: com.mysql.cj.jdbc.Driver
 
   cloud:
     consul:

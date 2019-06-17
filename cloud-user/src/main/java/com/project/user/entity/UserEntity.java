@@ -1,5 +1,7 @@
 package com.project.user.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.project.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,14 +19,23 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(callSuper = true)
+@TableName("t_user")
 public class UserEntity extends BaseEntity {
-    //登陆账户名
+    //账户名
     private String accountName;
     //密码
+    @JSONField(serialize = false)
     private String password;
-    //呢称,默认与登陆账户名同
-    private String nickName;
+    //用户别名
+    private String userAlias;
     //身份证号
     private String idCard;
+    //用户手机号
+    private String userMobile;
+    //用户邮箱
+    private String userEmail;
+    //用户头像信息
+    private String userAvatar;
+    //是否允许登录,0-允许登陆 1-不允许登陆
+    private Integer enable;
 }

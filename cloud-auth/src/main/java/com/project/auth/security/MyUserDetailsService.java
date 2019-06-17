@@ -1,20 +1,18 @@
 package com.project.auth.security;
 
 import com.project.auth.dto.UserDTO;
-import com.project.auth.feign.UserServiceClient;
 import com.project.auth.thrift.ThriftUserServiceClient;
-import com.project.auth.util.FeignUtils;
-import com.project.thrift.entity.ThriftUserRoleVO;
+import com.project.thrift.entity.ThriftResponseResult;
+import com.project.thrift.util.ThriftUtils;
 import com.project.util.BeanUtils;
-import com.project.util.ResponseResult;
 import org.apache.thrift.TException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * 用户信息获取
@@ -41,12 +39,13 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            ThriftUserRoleVO thrifrUserRoleVO = userServiceClient.client().getByAccountName(username);
-            if(thrifrUserRoleVO == null){
+            ThriftResponseResult thriftResponseResult = userServiceClient.client().getByAccountName(username);
+            Optional<UserDTO> userDTOOptional = ThriftUtils.parseObject(thriftResponseResult, UserDTO.class);
+            if(!userDTOOptional.isPresent()){
                 throw new UsernameNotFoundException("找不到用户,请重试");
             }
-            UserDTO userDTO = BeanUtils.copyBean(thrifrUserRoleVO, UserDTO.class);
-            return build(userDTO);
+            System.out.println(userDTOOptional.get());
+            return build(userDTOOptional.get());
         } catch (TException e) {
             e.printStackTrace();
         }
@@ -54,7 +53,7 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     private MyUserDetails build( UserDTO userDTO ){
-        return new MyUserDetails(userDTO.getId(),userDTO.getAccountName(),userDTO.getPassword(),userDTO.getNickName(),userDTO.getRoleList());
+        return BeanUtils.copyBean(userDTO,MyUserDetails.class);
     }
 
 }

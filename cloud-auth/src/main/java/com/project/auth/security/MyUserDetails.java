@@ -23,24 +23,33 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyUserDetails implements UserDetails {
-
+    //主键
     private String id;
-
-    //登陆账户名
+    //账户名
     private String accountName;
     //密码
     private String password;
-    //呢称,默认与登陆账户名同
-    private String nickName;
+    //用户别名
+    private String userAlias;
+    //身份证号
+    private String idCard;
+    //用户手机号
+    private String userMobile;
+    //用户邮箱
+    private String userEmail;
+    //用户头像信息
+    private String userAvatar;
+    //是否允许登录,0-允许登陆 1-不允许登陆
+    private Integer enable;
 
-    private List<RoleDTO> roleList;
+    List<RoleDTO> roleList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> grantedAuthorityList = Lists.newArrayList();
         if(roleList != null && !roleList.isEmpty()){
             for(RoleDTO roleDTO : roleList){
-                grantedAuthorityList.add(new SimpleGrantedAuthority(roleDTO.getEnName()));
+                grantedAuthorityList.add(new SimpleGrantedAuthority(roleDTO.getCode()));
             }
         }
         return grantedAuthorityList;
@@ -53,12 +62,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return enable == 0;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return enable == 0;
     }
 
     @Override
@@ -68,6 +77,6 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enable == 0;
     }
 }

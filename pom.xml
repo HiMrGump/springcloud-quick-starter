@@ -5,9 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>cloud-common</module>
+        <module>cloud-thrift</module>
         <module>cloud-auth</module>
         <module>cloud-user</module>
-        <module>cloud-thrift</module>
+
     </modules>
 
     <parent>
@@ -46,6 +47,7 @@
         <mybatisplus.version>3.1.0</mybatisplus.version>
         <libthrift>0.12.0</libthrift>
         <spring-cloud.thrift>2.0.0</spring-cloud.thrift>
+        <reactor.version>3.2.8.RELEASE</reactor.version>
     </properties>
 
 
@@ -184,6 +186,21 @@
                 <version>${okhttp.version}</version>
             </dependency>
 
+
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-test</artifactId>
+                <version>${reactor.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -289,19 +306,6 @@
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <configuration>
-                        </configuration>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

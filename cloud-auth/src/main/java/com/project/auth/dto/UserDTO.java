@@ -19,12 +19,22 @@ import java.util.List;
 @Data
 @ToString(callSuper = true)
 public class UserDTO extends BaseEntity {
-    //登陆账户名
+    //账户名
     private String accountName;
     //密码
     private String password;
-    //呢称,默认与登陆账户名同
-    private String nickName;
+    //用户别名
+    private String userAlias;
+    //身份证号
+    private String idCard;
+    //用户手机号
+    private String userMobile;
+    //用户邮箱
+    private String userEmail;
+    //用户头像信息
+    private String userAvatar;
+    //是否允许登录,0-允许登陆 1-不允许登陆
+    private Integer enable;
 
     List<RoleDTO> roleList;
 }

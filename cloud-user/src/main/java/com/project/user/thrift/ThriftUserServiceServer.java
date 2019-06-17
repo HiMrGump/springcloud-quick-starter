@@ -1,7 +1,8 @@
 package com.project.user.thrift;
 
-import com.project.thrift.entity.ThriftUserRoleVO;
+import com.project.thrift.entity.ThriftResponseResult;
 import com.project.thrift.service.ThriftUserService;
+import com.project.thrift.util.ThriftUtils;
 import com.project.user.pojo.UserRoleVO;
 import com.project.user.service.UserService;
 import com.project.util.BeanUtils;
@@ -25,11 +26,8 @@ public class ThriftUserServiceServer implements ThriftUserService.Iface{
     private UserService userService;
 
     @Override
-    public ThriftUserRoleVO getByAccountName(String accountName) throws TException {
+    public ThriftResponseResult getByAccountName(String accountName) throws TException {
         UserRoleVO userRoleVO = userService.getByAccountName(accountName);
-        if(userRoleVO != null){
-            return BeanUtils.copyBean(userRoleVO,ThriftUserRoleVO.class);
-        }
-        return null;
+        return ThriftUtils.success(userRoleVO);
     }
 }

@@ -2,6 +2,7 @@ package com.project.user.dao;
 
 import com.project.dao.base.BaseDao;
 import com.project.user.entity.UserEntity;
+import com.project.user.pojo.UserRoleVO;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -14,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserDao extends BaseDao<UserEntity> {
+
 }

@@ -16,12 +16,6 @@
 
         <dependency>
             <groupId>com.project</groupId>
-            <artifactId>cloud-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.project</groupId>
             <artifactId>cloud-thrift</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
@@ -97,6 +91,12 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
         </dependency>
 
     </dependencies>

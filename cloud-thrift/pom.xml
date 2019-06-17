@@ -13,10 +13,25 @@
     <artifactId>cloud-thrift</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.project</groupId>
+            <artifactId>cloud-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
         </dependency>
+
+
     </dependencies>
     
 </project>

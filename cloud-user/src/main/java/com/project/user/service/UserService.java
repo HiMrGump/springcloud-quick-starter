@@ -1,15 +1,24 @@
 package com.project.user.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.google.common.collect.Lists;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.project.service.base.BaseService;
+import com.project.user.dao.RoleDao;
 import com.project.user.dao.UserDao;
-import com.project.user.entity.RoleEntity;
 import com.project.user.entity.UserEntity;
 import com.project.user.pojo.UserRoleVO;
-import com.project.util.BCryptUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.project.util.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.jwt.Jwt;
+import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
  * 该类实现了XXXX相关操作接口的具体功能
@@ -20,24 +29,36 @@ import org.springframework.stereotype.Service;
  * @Version: 1.0
  */
 @Service
-public class UserService extends BaseService<UserEntity, UserDao> {
-    //模拟存在一个admin用户
+public class UserService extends BaseService<UserEntity,UserDao>{
+
+    @Resource
+    RoleDao roleDao;
+
     public UserRoleVO getByAccountName(String accountName){
-        if("admin".equals(accountName)){
-            UserRoleVO userEntity = new UserRoleVO();
-            userEntity.setId("123");
-            userEntity.setIdCard("123145454");
-            userEntity.setNickName("谭咏麟");
-            userEntity.setAccountName("admin");
-            userEntity.setDeleteFlag(0);
-            RoleEntity roleEntity = new RoleEntity();
-            roleEntity.setId("5");
-            roleEntity.setEnName("SIMPLE_USER");
-            roleEntity.setCnName("普通用户");
-            userEntity.setRoleList(Lists.newArrayList(roleEntity));
-            userEntity.setPassword(BCryptUtils.encode("123456"));
-            return userEntity;
+        QueryWrapper<UserEntity> userWrapper = new QueryWrapper<>();
+        userWrapper.lambda().eq(UserEntity :: getAccountName,accountName);
+        UserEntity userEntity = dao.selectOne(userWrapper);
+        if(userEntity == null){
+            return null;
         }
-        return null;
+        UserRoleVO userRoleVO = BeanUtils.copyBean(userEntity, UserRoleVO.class);
+        userRoleVO.setRoleList(roleDao.listByUserId(userEntity.getId()));
+        return userRoleVO;
+    }
+
+    public Optional<UserEntity> getCurrentLoginUser(){
+        HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+        String authentication = request.getHeader("Authorization");
+
+        if(StringUtils.isBlank(authentication)){
+            return Optional.empty();
+        }
+        authentication = authentication.substring(7);
+        Jwt jwt = JwtHelper.decode(authentication);
+        String claims = jwt.getClaims();
+        JSONObject jsonObject = (JSONObject) JSONObject.parse(claims);
+        String userId = jsonObject.getString("userId");
+        UserEntity userEntity = get(userId);
+        return Optional.ofNullable(userEntity);
     }
 }

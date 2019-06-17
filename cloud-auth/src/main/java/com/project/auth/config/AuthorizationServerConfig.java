@@ -15,6 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -23,6 +25,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -56,17 +59,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Resource
     private UserDetailsService userDetailsService;
-
     @Resource
     PasswordEncoder passwordEncoder;
+    @Resource
+    DataSource dataSource;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
-        String secret = passwordEncoder.encode(CLIENT_SECRET);// 用 BCrypt 对密码编码
-        //配置3个个客户端,一个用于password认证、一个用于client认证、一个用于authorization_code认证
-        configurer.inMemory()  // 使用in-memory存储
+
+        configurer.withClientDetails(clientDetails());
+        configurer.jdbc(dataSource).passwordEncoder(passwordEncoder);
+
+       /*
+               String secret = passwordEncoder.encode(CLIENT_SECRET);// 用 BCrypt 对密码编码
+                configurer.inMemory()
                 .withClient(CLIEN_ID_ONE)    //client_id用来标识客户的Id  客户端1
-               // .resourceIds(RESOURCE_ID)  //允许访问的resourceId列表,默认全部
                 .authorizedGrantTypes(GRANT_TYPE_CLIENT_CREDENTIALS, REFRESH_TOKEN)  //允许授权类型   授权码模式
                 .scopes(SCOPE_READ,SCOPE_WRITE)  //允许授权范围
                 .authorities("SIMPLE_USER")  //客户端可以使用的权限
@@ -75,14 +82,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS) //刷新token 时间 秒
                 .and()
                 .withClient(CLIEN_ID_TWO) //client_id用来标识客户的Id  客户端 2
-             //   .resourceIds(RESOURCE_ID)  //允许访问的resourceId列表,默认全部
                 .authorizedGrantTypes(GRANT_TYPE_AUTHORIZATION_CODE,GRANT_TYPE_PASSWORD, REFRESH_TOKEN)   //允许授权类型  密码授权模式
                 .scopes(SCOPE_READ,SCOPE_WRITE) //允许授权范围
                 .authorities("SIMPLE_USER") //客户端可以使用的权限
                 .secret(secret)  //secret客户端安全码
                 .accessTokenValiditySeconds(ACCESS_TOKEN_VALIDITY_SECONDS)    //token 时间秒
-                .refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS); //刷新token 时间 秒
+                .refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS); //刷新token 时间 秒*/
+    }
 
+    @Bean // 声明 ClientDetails实现
+    public ClientDetailsService clientDetails() {
+        return new JdbcClientDetailsService(dataSource);
     }
 
     @Override
@@ -150,7 +160,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             additionalInfo.put("license", "made by United Nations");
             MyUserDetails userDetails = (MyUserDetails)authentication.getUserAuthentication().getPrincipal();
             additionalInfo.put("userId", userDetails.getId());
-            additionalInfo.put("nickName", userDetails.getNickName());
+            additionalInfo.put("userAlias", userDetails.getUserAlias());
+            additionalInfo.put("userAvatar", userDetails.getUserAvatar());
             ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
             return accessToken;
         };

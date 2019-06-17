@@ -14,6 +14,8 @@ import lombok.Data;
  */
 @Data
 public class RoleDTO extends BaseEntity {
-    private String enName;
-    private String cnName;
+    //角色名
+    private String name;
+    //角色代码
+    private String code;
 }

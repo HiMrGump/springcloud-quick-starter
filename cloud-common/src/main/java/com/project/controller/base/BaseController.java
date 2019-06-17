@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
  * @Date: Created in 2019/6/6 10:24
  * @Version: 1.0
  */
-@RestController
 public abstract class BaseController<E extends BaseEntity,S extends BaseService> {
 
+
     @Autowired
-   public S service;
+    protected S service;
 
     /**
      * 根据ID获取一条数据

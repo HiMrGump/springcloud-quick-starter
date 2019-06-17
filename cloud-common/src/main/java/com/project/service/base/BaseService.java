@@ -9,10 +9,12 @@ import com.project.util.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * <pre>
@@ -35,7 +37,7 @@ import java.util.Map;
 public abstract class BaseService<E extends BaseEntity,D extends BaseDao<E>> {
 
     @Autowired
-    D dao;
+    protected D dao;
 
     /**
      *  根据主键获取一条数据
@@ -43,7 +45,7 @@ public abstract class BaseService<E extends BaseEntity,D extends BaseDao<E>> {
      * @return 数据
      */
     public E get(Serializable id){
-        return (E)dao.selectById(id);
+        return dao.selectById(id);
     }
 
     public List<E> list(Map<String,Object> searchMap){

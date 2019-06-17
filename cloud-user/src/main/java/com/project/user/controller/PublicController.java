@@ -9,10 +9,9 @@ package com.project.user.controller;
  * @Version: 1.0
  */
 
-import com.project.controller.base.BaseController;
-import com.project.user.entity.UserEntity;
 import com.project.user.service.UserService;
 import com.project.util.ResponseResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/public")
-public class PublicController extends BaseController<UserEntity, UserService> {
+public class PublicController {
+
+    @Autowired
+    UserService userService;
 
     //开放的接口
     @GetMapping("/getUserByAccountName/{accountName}")
     public ResponseResult getByAccountName(@PathVariable("accountName") String accountName){
-        return ResponseResult.success(service.getByAccountName(accountName));
+        return ResponseResult.success(userService.getByAccountName(accountName));
     }
 }

@@ -46,6 +46,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
         <!-- oauth2.0 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -75,6 +81,12 @@
         <dependency>
             <groupId>io.ostenant.rpc.thrift</groupId>
             <artifactId>spring-cloud-starter-thrift-client</artifactId>
+        </dependency>
+
+        <!-- mysql连接 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
     </dependencies>
