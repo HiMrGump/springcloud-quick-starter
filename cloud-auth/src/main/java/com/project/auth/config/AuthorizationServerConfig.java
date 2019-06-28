@@ -2,14 +2,13 @@ package com.project.auth.config;
 
 import com.google.common.collect.Maps;
 import com.project.auth.security.MyUserDetails;
-import com.project.auth.security.SMSCodeTokenGranter;
+import com.project.auth.security.SmsCodeTokenGranter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -28,7 +27,10 @@ import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGrante
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
-import org.springframework.security.oauth2.provider.token.*;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -209,7 +211,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager,
                     tokenServices(), clientDetails(), requestFactory()));
 
-        tokenGranters.add(new SMSCodeTokenGranter(authenticationManager,tokenServices(), clientDetails(), requestFactory()));
+        tokenGranters.add(new SmsCodeTokenGranter(authenticationManager,tokenServices(), clientDetails(), requestFactory()));
         return tokenGranters;
     }
 

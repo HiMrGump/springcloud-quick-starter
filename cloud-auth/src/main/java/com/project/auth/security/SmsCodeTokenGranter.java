@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
@@ -22,16 +21,16 @@ import java.util.Map;
  * @Date: Created in 2019/6/27 17:31
  * @Version: 1.0
  */
-public class SMSCodeTokenGranter extends AbstractTokenGranter {
+public class SmsCodeTokenGranter extends AbstractTokenGranter {
 
     private static final String GRANT_TYPE = "sms_code";
     private AuthenticationManager authenticationManager;
 
-    public SMSCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+    public SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
         this(authenticationManager, tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
     }
 
-    public SMSCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
+    public SmsCodeTokenGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
         super(tokenServices, clientDetailsService, requestFactory, grantType);
         this.authenticationManager = authenticationManager;
     }
