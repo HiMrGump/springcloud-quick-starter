@@ -1,12 +1,10 @@
 package com.project.user.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.project.entity.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
  * 该类实现了XXXX相关操作接口的具体功能
@@ -24,7 +22,7 @@ public class UserEntity extends BaseEntity {
     //账户名
     private String accountName;
     //密码
-    @JSONField(serialize = false)
+    //@JSONField(serialize = false)
     private String password;
     //用户别名
     private String userAlias;

@@ -5,7 +5,6 @@ import com.project.thrift.service.ThriftUserService;
 import com.project.thrift.util.ThriftUtils;
 import com.project.user.pojo.UserRoleVO;
 import com.project.user.service.UserService;
-import com.project.util.BeanUtils;
 import io.ostenant.rpc.thrift.server.annotation.ThriftService;
 import org.apache.thrift.TException;
 
@@ -28,6 +27,12 @@ public class ThriftUserServiceServer implements ThriftUserService.Iface{
     @Override
     public ThriftResponseResult getByAccountName(String accountName) throws TException {
         UserRoleVO userRoleVO = userService.getByAccountName(accountName);
+        return ThriftUtils.success(userRoleVO);
+    }
+
+    @Override
+    public ThriftResponseResult getByMobile(String mobile) throws TException {
+        UserRoleVO userRoleVO = userService.getByMobile(mobile);
         return ThriftUtils.success(userRoleVO);
     }
 }

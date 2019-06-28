@@ -39,6 +39,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
+            System.out.println("账号密码登陆》》》》》》》》》》》》》》》》》》》》》》》》");
             ThriftResponseResult thriftResponseResult = userServiceClient.client().getByAccountName(username);
             Optional<UserDTO> userDTOOptional = ThriftUtils.parseObject(thriftResponseResult, UserDTO.class);
             if(!userDTOOptional.isPresent()){

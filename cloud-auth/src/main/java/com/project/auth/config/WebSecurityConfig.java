@@ -2,6 +2,7 @@ package com.project.auth.config;
 
 import com.alibaba.fastjson.JSON;
 import com.project.auth.security.MyUserDetailsService;
+import com.project.auth.security.SmsCodeAuthenticationProvider;
 import com.project.util.ResponseResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,6 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private PasswordEncoder passwordEncoder;
 
+    @Resource
+    SmsCodeAuthenticationProvider codeAuthenticationProvider;
+
     //供给oauth2.0使用
     @Override
     @Bean
@@ -44,7 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
-
         http.authorizeRequests()
                 .antMatchers("/actuator/**", "/public/**").permitAll()//不需要身份认证可以访问
                 .antMatchers("/**", "/oauth/**").authenticated()//必须要有身份认证
@@ -79,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
         authManagerBuilder.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder);
+        authManagerBuilder.authenticationProvider(codeAuthenticationProvider);
     }
 
     @Bean

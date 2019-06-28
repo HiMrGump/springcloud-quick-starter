@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
  * 动态路由服务
  */
 @Service
-public class DynamicRouteServiceImpl implements ApplicationEventPublisherAware {
+public class DynamicRouteService implements ApplicationEventPublisherAware {
 
     @Autowired
     private RouteDefinitionWriter routeDefinitionWriter;

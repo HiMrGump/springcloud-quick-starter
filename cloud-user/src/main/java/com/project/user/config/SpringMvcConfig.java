@@ -20,11 +20,11 @@ import java.util.List;
  * @Date: Created in 2019/6/10 15:14
  * @Version: 1.0
  */
-@Configuration
 public class SpringMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        //converters.clear();
         FastJsonHttpMessageConverter fastJsonHttpMessageConverter = new FastJsonHttpMessageConverter();
 
         //自定义配置...

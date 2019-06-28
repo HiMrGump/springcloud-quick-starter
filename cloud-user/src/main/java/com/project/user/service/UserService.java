@@ -46,6 +46,18 @@ public class UserService extends BaseService<UserEntity,UserDao>{
         return userRoleVO;
     }
 
+    public UserRoleVO getByMobile(String mobile){
+        QueryWrapper<UserEntity> userWrapper = new QueryWrapper<>();
+        userWrapper.lambda().eq(UserEntity :: getUserMobile,mobile);
+        UserEntity userEntity = dao.selectOne(userWrapper);
+        if(userEntity == null){
+            return null;
+        }
+        UserRoleVO userRoleVO = BeanUtils.copyBean(userEntity, UserRoleVO.class);
+        userRoleVO.setRoleList(roleDao.listByUserId(userEntity.getId()));
+        return userRoleVO;
+    }
+
     public Optional<UserEntity> getCurrentLoginUser(){
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         String authentication = request.getHeader("Authorization");

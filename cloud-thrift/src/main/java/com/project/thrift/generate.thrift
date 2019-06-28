@@ -1,5 +1,5 @@
 // 命令 thrift -gen java ./generate.thrift
-namespace java com.project.thrift
+namespace java com.project.thrift.entity
 
 // 分页控制参数
 struct ThriftPageHelper {
@@ -44,7 +44,7 @@ struct ThriftUserRoleVO {
 struct ThriftResponseResult {
   1: required string code,
   2: required string msg,
-  3: required string data
+  3: optional string data
 }
 
 
@@ -54,4 +54,7 @@ struct ThriftResponseResult {
 service ThriftUserService {
   //根据用户名获取他的账户信息和角色信息
   ThriftResponseResult getByAccountName(1: string accountName);
+
+  //根据手机号获取他的账户信息和角色信息
+  ThriftResponseResult getByMobile(1: string mobile);
 }

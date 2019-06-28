@@ -2,31 +2,42 @@ package com.project.auth.config;
 
 import com.google.common.collect.Maps;
 import com.project.auth.security.MyUserDetails;
+import com.project.auth.security.SMSCodeTokenGranter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.*;
+import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenGranter;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
+import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter;
+import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
+import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
+import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,9 +67,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Resource
     private AuthenticationManager authenticationManager;   //认证方式
-
-    @Resource
-    private UserDetailsService userDetailsService;
     @Resource
     PasswordEncoder passwordEncoder;
     @Resource
@@ -98,11 +106,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore())
+                .tokenGranter(tokenGranter())
                 .authenticationManager(authenticationManager)
                 .accessTokenConverter(accessTokenConverter())
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)  //支持GET  POST  请求获取token
                 .tokenEnhancer(tokenEnhancerChain()) //拓展token
-                .userDetailsService(userDetailsService) //必须注入userDetailsService否则根据refresh_token无法加载用户信息
+              //  .userDetailsService(userDetailsService) //必须注入userDetailsService否则根据refresh_token无法加载用户信息
                 .reuseRefreshTokens(true);  //开启刷新token
     }
 
@@ -166,4 +175,60 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             return accessToken;
         };
     }
+
+    @Bean
+    public TokenGranter tokenGranter() {
+        TokenGranter tokenGranter = new TokenGranter() {
+            private CompositeTokenGranter delegate;
+
+            @Override
+            public OAuth2AccessToken grant(String grantType, TokenRequest tokenRequest) {
+                if (delegate == null) {
+                    delegate = new CompositeTokenGranter(getDefaultTokenGranters());
+                }
+                System.out.println("要获取的grantType：" + grantType);
+                return delegate.grant(grantType, tokenRequest);
+            }
+        };
+        return tokenGranter;
+    }
+
+    //拖链自定义token
+    private List<TokenGranter> getDefaultTokenGranters() {
+
+        List<TokenGranter> tokenGranters = new ArrayList<TokenGranter>();
+        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices(),
+                authorizationCodeServices(), clientDetails(), requestFactory()));
+        tokenGranters.add(new RefreshTokenGranter(tokenServices(), clientDetails(), requestFactory()));
+        ImplicitTokenGranter implicit = new ImplicitTokenGranter(tokenServices(), clientDetails(),
+                requestFactory());
+        tokenGranters.add(implicit);
+        tokenGranters.add(
+                new ClientCredentialsTokenGranter(tokenServices(), clientDetails(), requestFactory()));
+
+        tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager,
+                    tokenServices(), clientDetails(), requestFactory()));
+
+        tokenGranters.add(new SMSCodeTokenGranter(authenticationManager,tokenServices(), clientDetails(), requestFactory()));
+        return tokenGranters;
+    }
+
+    private AuthorizationCodeServices authorizationCodeServices() {
+        return new InMemoryAuthorizationCodeServices();  //使用默认
+    }
+
+    private OAuth2RequestFactory requestFactory() {
+        return new DefaultOAuth2RequestFactory(clientDetails());  //使用默认
+    }
+
+    @Bean
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setSupportRefreshToken(true);
+        defaultTokenServices.setTokenEnhancer(tokenEnhancerChain());   // 如果没有设置它,JWT就失效了.
+        return defaultTokenServices;
+    }
+
 }

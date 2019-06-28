@@ -29,10 +29,13 @@ public class ThriftUtils {
     }
 
     public static <T> Optional<T> parseObject(ThriftResponseResult thriftResponseResult,Class<T> clazz){
+        System.out.println("接受到数据1：" + thriftResponseResult);
         if(thriftResponseResult == null){
             return Optional.empty();
         }
         String data = thriftResponseResult.getData();
+
+        System.out.println("接受到数据2：" + data);
         if(StringUtils.isBlank(data)){
             return Optional.empty();
         }
