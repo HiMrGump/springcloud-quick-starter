@@ -188,7 +188,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 if (delegate == null) {
                     delegate = new CompositeTokenGranter(getDefaultTokenGranters());
                 }
-                System.out.println("要获取的grantType：" + grantType);
                 return delegate.grant(grantType, tokenRequest);
             }
         };
