@@ -6,6 +6,11 @@ server:
   port: 7000
 
 spring:
+  output:
+    ansi:
+      # 打印彩色日志
+      enabled: always
+    #定义应用名
   application:
     name: cloud-gateway
   cloud:

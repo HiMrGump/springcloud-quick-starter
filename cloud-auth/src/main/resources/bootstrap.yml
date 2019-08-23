@@ -6,8 +6,12 @@ redis.ip: 127.0.0.1
 server:
   port: 7100
 
-#定义应用名
 spring:
+  output:
+    ansi:
+      # 打印彩色日志
+      enabled: always
+  #定义应用名
   application:
     name: cloud-auth
   datasource:

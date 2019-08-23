@@ -8,6 +8,7 @@
         <module>cloud-thrift</module>
         <module>cloud-auth</module>
         <module>cloud-user</module>
+        <module>cloud-document</module>
 
     </modules>
 
