@@ -1,8 +1,7 @@
 package com.project.user.dao;
 
-import com.project.dao.base.BaseDao;
+import com.project.common.dao.BaseDao;
 import com.project.user.entity.RoleEntity;
-import com.project.util.BCryptUtils;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

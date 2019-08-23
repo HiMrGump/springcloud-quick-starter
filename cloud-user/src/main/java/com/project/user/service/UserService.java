@@ -2,14 +2,13 @@ package com.project.user.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.project.service.base.BaseService;
+import com.project.common.service.BaseService;
 import com.project.user.dao.RoleDao;
 import com.project.user.dao.UserDao;
 import com.project.user.entity.UserEntity;
 import com.project.user.pojo.UserRoleVO;
 import com.project.util.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ import java.util.Optional;
  * @Version: 1.0
  */
 @Service
-public class UserService extends BaseService<UserEntity,UserDao>{
+public class UserService extends BaseService<UserEntity,UserDao> {
 
     @Resource
     RoleDao roleDao;

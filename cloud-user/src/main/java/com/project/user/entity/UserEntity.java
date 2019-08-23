@@ -1,7 +1,7 @@
 package com.project.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.project.entity.base.BaseEntity;
+import com.project.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

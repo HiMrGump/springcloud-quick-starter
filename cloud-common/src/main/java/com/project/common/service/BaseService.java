@@ -1,20 +1,17 @@
-package com.project.service.base;
+package com.project.common.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.project.dao.base.BaseDao;
-import com.project.entity.base.BaseEntity;
+import com.project.common.dao.BaseDao;
+import com.project.common.entity.BaseEntity;
 import com.project.util.IDUtils;
 import com.project.util.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * <pre>
@@ -52,13 +49,13 @@ public abstract class BaseService<E extends BaseEntity,D extends BaseDao<E>> {
         return dao.selectByMap(searchMap);
     }
 
-    public PageHelper<E> listByPage(PageHelper<E> pageHelper,Map<String,Object> searchMap){
+    public PageHelper<E> listByPage(PageHelper<E> pageHelper, Map<String,Object> searchMap){
         if(pageHelper == null){
             pageHelper = new PageHelper<E>();
         }
 
         Page page = new Page(pageHelper.getCurrentPage(),pageHelper.getPageSize());
-     //   dao.selectPage(page,);
+        //   dao.selectPage(page,);
         return pageHelper;
     }
 
@@ -88,3 +85,4 @@ public abstract class BaseService<E extends BaseEntity,D extends BaseDao<E>> {
 
 
 }
+

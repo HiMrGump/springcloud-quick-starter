@@ -1,17 +1,11 @@
 package com.project.auth.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.project.auth.dto.RoleDTO;
 import com.project.auth.dto.UserDTO;
-import com.project.entity.base.ResultCode;
+import com.project.common.entity.ResultCode;
 import com.project.util.ResponseResult;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * 该类实现了XXXX相关操作接口的具体功能

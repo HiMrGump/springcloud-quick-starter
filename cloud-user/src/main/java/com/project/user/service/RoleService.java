@@ -1,6 +1,6 @@
 package com.project.user.service;
 
-import com.project.service.base.BaseService;
+import com.project.common.service.BaseService;
 import com.project.user.dao.RoleDao;
 import com.project.user.entity.RoleEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Service;
  * @Version: 1.0
  */
 @Service
-public class RoleService extends BaseService<RoleEntity,RoleDao>{
+public class RoleService extends BaseService<RoleEntity,RoleDao> {
 
 }

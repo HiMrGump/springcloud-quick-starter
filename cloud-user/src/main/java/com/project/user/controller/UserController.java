@@ -1,13 +1,9 @@
 package com.project.user.controller;
 
-import com.project.controller.base.BaseController;
-import com.project.service.base.BaseService;
+import com.project.common.controller.BaseController;
 import com.project.user.entity.UserEntity;
 import com.project.user.service.UserService;
 import com.project.util.ResponseResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.jwt.Jwt;
-import org.springframework.security.jwt.JwtHelper;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-public class UserController extends BaseController<UserEntity,UserService> {
+public class UserController extends BaseController<UserEntity, UserService> {
 
 
     //被保护的接口

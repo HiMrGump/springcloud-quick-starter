@@ -1,6 +1,5 @@
 package com.project.exception;
 
-import com.project.entity.base.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

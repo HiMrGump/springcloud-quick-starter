@@ -1,6 +1,6 @@
 package com.project.util;
 
-import com.project.entity.base.ResultCode;
+import com.project.common.entity.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

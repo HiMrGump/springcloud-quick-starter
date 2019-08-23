@@ -1,4 +1,4 @@
-package com.project.entity.base;
+package com.project.common.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;

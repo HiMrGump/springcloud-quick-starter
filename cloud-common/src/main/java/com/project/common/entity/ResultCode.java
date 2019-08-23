@@ -1,4 +1,4 @@
-package com.project.entity.base;
+package com.project.common.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

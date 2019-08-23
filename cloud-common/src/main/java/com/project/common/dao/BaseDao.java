@@ -1,7 +1,7 @@
-package com.project.dao.base;
+package com.project.common.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.project.entity.base.BaseEntity;
+import com.project.common.entity.BaseEntity;
 
 /**
  * 该接口描述了XXXX操作的功能定义

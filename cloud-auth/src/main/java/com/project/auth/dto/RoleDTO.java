@@ -1,7 +1,6 @@
 package com.project.auth.dto;
 
-import com.project.entity.base.BaseEntity;
-import lombok.AllArgsConstructor;
+import com.project.common.entity.BaseEntity;
 import lombok.Data;
 
 /**

@@ -1,7 +1,7 @@
-package com.project.controller.base;
+package com.project.common.controller;
 
-import com.project.entity.base.BaseEntity;
-import com.project.service.base.BaseService;
+import com.project.common.entity.BaseEntity;
+import com.project.common.service.BaseService;
 import com.project.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
