@@ -9,13 +9,14 @@ package com.project.user.controller;
  * @Version: 1.0
  */
 
+import com.project.common.db.DBHelper;
+import com.project.common.db.DBOperation;
+import com.project.user.entity.UserEntity;
 import com.project.user.service.UserService;
+import com.project.util.PageHelper;
 import com.project.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
@@ -29,4 +30,19 @@ public class PublicController {
     public ResponseResult getByAccountName(@PathVariable("accountName") String accountName){
         return ResponseResult.success(userService.getByAccountName(accountName));
     }
+
+    //开放的接口
+    @GetMapping("/list")
+    public ResponseResult list(@RequestBody UserEntity entity){
+        DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "account_name", entity.getAccountName());
+        return ResponseResult.success(userService.list(dbHelper));
+    }
+
+    //开放的接口
+    @GetMapping("/page")
+    public ResponseResult page(@RequestBody UserEntity entity){
+        DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "account_name", entity.getAccountName()).addOperation(DBOperation.EQ,"enable",entity.getEnable());
+        return ResponseResult.success(userService.listByPage(entity.buildPageHelper(),dbHelper));
+    }
+
 }

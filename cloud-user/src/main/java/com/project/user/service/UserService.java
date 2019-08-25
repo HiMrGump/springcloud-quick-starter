@@ -2,7 +2,9 @@ package com.project.user.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.project.common.dao.BaseDao;
 import com.project.common.service.BaseService;
+import com.project.common.service.MyBatisServiceImpl;
 import com.project.user.dao.RoleDao;
 import com.project.user.dao.UserDao;
 import com.project.user.entity.UserEntity;
@@ -28,15 +30,19 @@ import java.util.Optional;
  * @Version: 1.0
  */
 @Service
-public class UserService extends BaseService<UserEntity,UserDao> {
+public class UserService extends MyBatisServiceImpl<UserEntity> implements BaseService<UserEntity> {
 
     @Resource
     RoleDao roleDao;
 
+    @Resource
+    UserDao userDao;
+
     public UserRoleVO getByAccountName(String accountName){
         QueryWrapper<UserEntity> userWrapper = new QueryWrapper<>();
         userWrapper.lambda().eq(UserEntity :: getAccountName,accountName);
-        UserEntity userEntity = dao.selectOne(userWrapper);
+        // UserEntity userEntity = dao.selectOne(userWrapper);
+        UserEntity userEntity = null;
         if(userEntity == null){
             return null;
         }
@@ -48,7 +54,7 @@ public class UserService extends BaseService<UserEntity,UserDao> {
     public UserRoleVO getByMobile(String mobile){
         QueryWrapper<UserEntity> userWrapper = new QueryWrapper<>();
         userWrapper.lambda().eq(UserEntity :: getUserMobile,mobile);
-        UserEntity userEntity = dao.selectOne(userWrapper);
+        UserEntity userEntity = userDao.selectOne(userWrapper);
         if(userEntity == null){
             return null;
         }
@@ -71,5 +77,10 @@ public class UserService extends BaseService<UserEntity,UserDao> {
         String userId = jsonObject.getString("userId");
         UserEntity userEntity = get(userId);
         return Optional.ofNullable(userEntity);
+    }
+
+    @Override
+    public BaseDao getDao() {
+        return userDao;
     }
 }

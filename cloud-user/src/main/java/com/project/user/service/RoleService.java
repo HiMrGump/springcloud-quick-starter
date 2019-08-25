@@ -1,6 +1,8 @@
 package com.project.user.service;
 
+import com.project.common.dao.BaseDao;
 import com.project.common.service.BaseService;
+import com.project.common.service.MyBatisServiceImpl;
 import com.project.user.dao.RoleDao;
 import com.project.user.entity.RoleEntity;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,10 @@ import org.springframework.stereotype.Service;
  * @Version: 1.0
  */
 @Service
-public class RoleService extends BaseService<RoleEntity,RoleDao> {
+public class RoleService extends MyBatisServiceImpl<RoleEntity> implements BaseService<RoleEntity> {
 
+    @Override
+    public BaseDao getDao() {
+        return null;
+    }
 }

@@ -1,17 +1,11 @@
 package com.project.common.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.project.common.dao.BaseDao;
+import com.project.common.db.DBHelper;
 import com.project.common.entity.BaseEntity;
-import com.project.util.IDUtils;
 import com.project.util.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <pre>
@@ -31,58 +25,26 @@ import java.util.Map;
  * @Version: 1.0
  * </pre>
  */
-public abstract class BaseService<E extends BaseEntity,D extends BaseDao<E>> {
+public interface BaseService<E extends BaseEntity> {
 
-    @Autowired
-    protected D dao;
 
     /**
      *  根据主键获取一条数据
      * @param id 主键W
      * @return 数据
      */
-    public E get(Serializable id){
-        return dao.selectById(id);
-    }
+    public E get(Serializable id);
 
-    public List<E> list(Map<String,Object> searchMap){
-        return dao.selectByMap(searchMap);
-    }
+    public List<E> list(DBHelper dbSearchHelper);
 
-    public PageHelper<E> listByPage(PageHelper<E> pageHelper, Map<String,Object> searchMap){
-        if(pageHelper == null){
-            pageHelper = new PageHelper<E>();
-        }
+    public PageHelper<E> listByPage(PageHelper<E> pageHelper, DBHelper dbSearchHelper);
 
-        Page page = new Page(pageHelper.getCurrentPage(),pageHelper.getPageSize());
-        //   dao.selectPage(page,);
-        return pageHelper;
-    }
+    public int delete(Serializable id);
 
-    @Transactional
-    public int delete(Serializable id){
-        return dao.deleteById(id);
-    }
+    public int deleteByIds(List<Serializable> idList);
 
-    @Transactional
-    public int deleteByIds(List<Serializable> idList){
-        return dao.deleteBatchIds(idList);
-    }
+    public int update(E entity);
 
-    @Transactional
-    public int update(E entity){
-        entity.setLastModifyDate(new Date());
-        return dao.updateById(entity);
-    }
-
-    @Transactional
-    public int save(E entity){
-        entity.setId(IDUtils.generate());
-        entity.setCreateDate(new Date());
-        return dao.insert(entity);
-    }
-
-
-
+    public int save(E entity);
 }
 
