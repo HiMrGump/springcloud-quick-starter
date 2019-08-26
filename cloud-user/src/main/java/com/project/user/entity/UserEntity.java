@@ -2,6 +2,7 @@ package com.project.user.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.project.common.entity.BaseEntity;
+import com.project.common.entity.PageEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("t_user")
-public class UserEntity extends BaseEntity {
+public class UserEntity extends PageEntity {
     //账户名
     private String accountName;
     //密码

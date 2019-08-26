@@ -3,7 +3,6 @@ package com.project.common.controller;
 import com.project.common.entity.BaseEntity;
 import com.project.common.service.BaseService;
 import com.project.util.ResponseResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
  * @Date: Created in 2019/6/6 10:24
  * @Version: 1.0
  */
-public abstract class BaseController<E extends BaseEntity,S extends BaseService> {
+public abstract class BaseController{
 
-
-    @Autowired
-    protected S service;
+    public abstract BaseService getService();
 
     /**
      * 根据ID获取一条数据
@@ -27,7 +24,7 @@ public abstract class BaseController<E extends BaseEntity,S extends BaseService>
      */
     @GetMapping("/get/{id}")
     public ResponseResult get(@PathVariable("id") String id){
-        return ResponseResult.success(service.get(id));
+        return ResponseResult.success(getService().get(id));
     }
 
     /**
@@ -36,8 +33,8 @@ public abstract class BaseController<E extends BaseEntity,S extends BaseService>
      * @return
      */
     @PostMapping("/save")
-    public ResponseResult save(@RequestBody E entity){
-        service.save(entity);
+    public ResponseResult save(@RequestBody BaseEntity entity){
+        getService().save(entity);
         return ResponseResult.success();
     }
 
@@ -47,8 +44,8 @@ public abstract class BaseController<E extends BaseEntity,S extends BaseService>
      * @return
      */
     @PutMapping("/update")
-    public ResponseResult update(@RequestBody E entity){
-        service.update(entity);
+    public ResponseResult update(@RequestBody BaseEntity entity){
+        getService().update(entity);
         return ResponseResult.success();
     }
 
@@ -60,7 +57,7 @@ public abstract class BaseController<E extends BaseEntity,S extends BaseService>
      */
     @DeleteMapping("/delete/{id}")
     public ResponseResult delete(@PathVariable("id") String id){
-        service.delete(id);
+        getService().delete(id);
         return ResponseResult.success();
     }
 

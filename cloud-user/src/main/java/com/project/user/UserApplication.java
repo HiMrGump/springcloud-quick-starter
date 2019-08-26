@@ -20,7 +20,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableThriftServer
 @EnableFeignClients
 @SpringBootApplication
-@MapperScan("com.wang.user.dao")
 public class UserApplication {
 
     public static void main(String[] args) {
