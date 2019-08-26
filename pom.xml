@@ -62,13 +62,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- apache common 工具类-->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3}</version>
-            </dependency>
-
             <!-- guava 工具类 -->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -100,13 +93,7 @@
                 <artifactId>persistence-api</artifactId>
                 <version>1.0</version>
             </dependency>
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-                <scope>provided</scope>
-            </dependency>
+
             <!-- oauth2 -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
@@ -202,6 +189,18 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- consul discovery -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-consul-discovery</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-lang</groupId>
+                        <artifactId>commons-lang</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -218,11 +217,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- consul discovery -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
-        </dependency>
         <!-- feign，自带ribbon -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -255,6 +249,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- apache common 工具类-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3}</version>
         </dependency>
 
         <!-- jackson -->
