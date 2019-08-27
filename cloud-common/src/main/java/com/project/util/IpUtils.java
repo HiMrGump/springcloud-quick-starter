@@ -13,7 +13,7 @@ import java.util.Enumeration;
  * @Date: Created in 2019/6/24 9:57
  * @Version: 1.0
  */
-public class IpUtil {
+public class IpUtils {
     /**
      * 获取本地ip
      */

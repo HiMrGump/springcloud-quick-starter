@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @Date: Created in 2019/4/22 16:45
  * @Version: 1.0
  */
-public class SimpleUtil {
+public class SimpleUtils {
 
     /**
      * 判断一个Long值必须存在且大于0

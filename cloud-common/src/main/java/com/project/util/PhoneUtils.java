@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Date: Created in 2019/5/16 9:32
  * @Version: 1.0
  */
-public class PhoneUtil {
+public class PhoneUtils {
 
     static String MOBILE_REGEX = "^1\\d{10}$"; //手机号正则
     static String TEL_REGEX = "^\\d{3}-\\d{8}|\\d{4}-\\d{7}$"; //座机正则

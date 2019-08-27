@@ -1,7 +1,7 @@
 package com.project.validate;
 
 /**
- * 该接口描述了vaildate数据校验分组功能定义
+ * 该接口描述了vaildate数据校验分组功能定义,可以往下添加
  *
  * @ClassName: ValidateGroup
  * @Author: WangQingYun
