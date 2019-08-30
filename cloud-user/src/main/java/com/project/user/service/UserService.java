@@ -1,7 +1,6 @@
 package com.project.user.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.project.common.dao.BaseDao;
 import com.project.common.service.BaseService;
 import com.project.common.service.MyBatisServiceImpl;
@@ -39,10 +38,9 @@ public class UserService extends MyBatisServiceImpl<UserEntity> implements BaseS
     UserDao userDao;
 
     public UserRoleVO getByAccountName(String accountName){
-        QueryWrapper<UserEntity> userWrapper = new QueryWrapper<>();
-        userWrapper.lambda().eq(UserEntity :: getAccountName,accountName);
-        // UserEntity userEntity = dao.selectOne(userWrapper);
-        UserEntity userEntity = null;
+        UserEntity searchUserEntity = new UserEntity();
+        searchUserEntity.setAccountName(accountName);
+        UserEntity userEntity  = userDao.selectOne(searchUserEntity);
         if(userEntity == null){
             return null;
         }
@@ -52,12 +50,13 @@ public class UserService extends MyBatisServiceImpl<UserEntity> implements BaseS
     }
 
     public UserRoleVO getByMobile(String mobile){
-        QueryWrapper<UserEntity> userWrapper = new QueryWrapper<>();
-        userWrapper.lambda().eq(UserEntity :: getUserMobile,mobile);
-        UserEntity userEntity = userDao.selectOne(userWrapper);
+        UserEntity searchUserEntity = new UserEntity();
+        searchUserEntity.setUserMobile(mobile);
+        UserEntity userEntity  = userDao.selectOne(searchUserEntity);
         if(userEntity == null){
             return null;
         }
+
         UserRoleVO userRoleVO = BeanUtils.copyBean(userEntity, UserRoleVO.class);
         userRoleVO.setRoleList(roleDao.listByUserId(userEntity.getId()));
         return userRoleVO;
@@ -75,8 +74,7 @@ public class UserService extends MyBatisServiceImpl<UserEntity> implements BaseS
         String claims = jwt.getClaims();
         JSONObject jsonObject = (JSONObject) JSONObject.parse(claims);
         String userId = jsonObject.getString("userId");
-        UserEntity userEntity = get(userId);
-        return Optional.ofNullable(userEntity);
+        return get(userId);
     }
 
     @Override

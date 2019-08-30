@@ -1,10 +1,11 @@
 package com.project.user.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.project.common.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Table;
 
 /**
  * 该类实现了XXXX相关操作接口的具体功能
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("t_role")
+@Table(name = "t_role")
 public class RoleEntity extends BaseEntity {
     //角色名
     private String name;

@@ -5,8 +5,8 @@ import com.project.gateway.model.GatewayFilterDefinition;
 import com.project.gateway.model.GatewayPredicateDefinition;
 import com.project.gateway.model.GatewayRouteDefinition;
 import com.project.gateway.service.DynamicRouteService;
-import org.apache.commons.lang.StringUtils;
-import org.apache.http.client.utils.DateUtils;
+import com.project.util.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

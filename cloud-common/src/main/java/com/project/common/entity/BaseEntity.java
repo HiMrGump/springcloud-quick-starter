@@ -1,13 +1,12 @@
 package com.project.common.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.Version;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.util.PageHelper;
 import lombok.Data;
+import tk.mybatis.mapper.annotation.LogicDelete;
+import tk.mybatis.mapper.annotation.Order;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -22,22 +21,41 @@ import java.util.Date;
 @Data
 public abstract class BaseEntity implements Serializable {
     //主键
-    @TableId(type= IdType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO,generator="JDBC")
     private String id;
+
     //创建时间
+    @Order(value="DESC")
     private Date createDate;
+
     //最后修改时间
-    @JsonIgnore
+    @Column(name = "last_modify_date")
     private Date lastModifyDate;
+
     //最后修改人
-    @JsonIgnore
+    @Column(name = "last_modify_by")
     private String lastModifyBy;
-    //版本号
-    @Version
-    @JsonIgnore
-    private long version;
+
     //删除状态,0-正常,1删除
-    @TableLogic
-    @JsonIgnore
-    private int deleteFlag;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //不进行序列化
+    @LogicDelete
+    private Integer deleteFlag;
+
+    //当前页,默认1
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private int currentPage = 1;
+
+    //页大小,默认20
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private int pageSize = 20;
+
+    public PageHelper buildPageHelper(){
+        PageHelper pageHelper = new PageHelper();
+        pageHelper.setCurrentPage(currentPage);
+        pageHelper.setPageSize(pageSize);
+        return pageHelper;
+    }
 }

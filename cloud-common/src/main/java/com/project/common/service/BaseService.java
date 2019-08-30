@@ -6,6 +6,7 @@ import com.project.util.PageHelper;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <pre>
@@ -26,24 +27,24 @@ import java.util.List;
  * </pre>
  */
 public interface BaseService<E extends BaseEntity> {
-
-
     /**
      *  根据主键获取一条数据
      * @param id 主键W
      * @return 数据
      */
-    public E get(Serializable id);
+    public Optional<E> get(String id);
 
-    public List<E> list(DBHelper dbSearchHelper);
+    public Optional<E> getOne(E entity);
 
-    public PageHelper<E> listByPage(PageHelper<E> pageHelper, DBHelper dbSearchHelper);
+    public List<E> list(E entity);
 
-    public int delete(Serializable id);
+    public PageHelper<E> listByPage(E e);
 
-    public int deleteByIds(List<Serializable> idList);
+    public int delete(String id);
 
     public int update(E entity);
+
+    public int updateBySelective(E entity);
 
     public int save(E entity);
 }

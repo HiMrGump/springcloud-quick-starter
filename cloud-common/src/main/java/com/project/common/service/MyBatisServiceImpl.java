@@ -1,14 +1,9 @@
 package com.project.common.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageInfo;
 import com.project.common.dao.BaseDao;
-import com.project.common.db.DBHelper;
-import com.project.common.db.DBOperation;
 import com.project.common.entity.BaseEntity;
+import com.project.exception.ParameterErrorException;
 import com.project.util.IDUtils;
 import com.project.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 这个类实现了XXXX相关功能
@@ -34,11 +30,32 @@ public abstract class MyBatisServiceImpl<E extends BaseEntity> implements BaseSe
      * @param id 主键W
      * @return 数据
      */
-    public E get(Serializable id){
-        return (E)getDao().selectById(id);
+    @Override
+    public Optional<E> get(String id){
+        return Optional.ofNullable((E)getDao().selectByPrimaryKey(id));
     }
 
-    public List<E> list(DBHelper dbSearchHelper){
+    @Override
+    public Optional<E> getOne(E entity){
+        return Optional.ofNullable((E)getDao().selectOne(entity));
+    }
+
+    @Override
+    public List<E> list(E e){
+        return getDao().select(e);
+    }
+
+    @Override
+    public PageHelper<E> listByPage(E e){
+        com.github.pagehelper.PageHelper.startPage(e.getCurrentPage(),e.getPageSize());
+        PageInfo<E> ePageInfo = new PageInfo<E>(getDao().select(e));
+        PageHelper pageHelper = e.buildPageHelper();
+        pageHelper.setTotal(ePageInfo.getTotal());
+        pageHelper.setResults(ePageInfo.getList());
+        return pageHelper;
+    }
+
+   /* public List<E> list(DBHelper dbSearchHelper){
         return getDao().selectList(buildWrapper(dbSearchHelper));
     }
 
@@ -112,28 +129,41 @@ public abstract class MyBatisServiceImpl<E extends BaseEntity> implements BaseSe
             }
         }
         return false;
-    }
+    }*/
 
+    @Override
     @Transactional
-    public int delete(Serializable id){
-        return getDao().deleteById(id);
-    }
-
-    @Transactional
-    public int deleteByIds(List<Serializable> idList){
-        return getDao().deleteBatchIds(idList);
+    public int delete(String id){
+        if(StringUtils.isBlank(id)){
+            throw new ParameterErrorException("主键必填");
+        }
+        return getDao().deleteByPrimaryKey(id);
     }
 
     @Transactional
     public int update(E entity){
+        if(StringUtils.isBlank(entity.getId())){
+            throw new ParameterErrorException("主键必填");
+        }
         entity.setLastModifyDate(new Date());
-        return getDao().updateById(entity);
+        return getDao().updateByPrimaryKey(entity);
+    }
+
+    @Transactional
+    public int updateBySelective(E entity){
+        if(StringUtils.isBlank(entity.getId())){
+            throw new ParameterErrorException("主键必填");
+        }
+        entity.setLastModifyDate(new Date());
+        return getDao().updateByPrimaryKeySelective(entity);
     }
 
     @Transactional
     public int save(E entity){
         entity.setId(IDUtils.generate());
         entity.setCreateDate(new Date());
+        entity.setLastModifyDate(new Date());
+        entity.setDeleteFlag(0);
         return getDao().insert(entity);
     }
 }

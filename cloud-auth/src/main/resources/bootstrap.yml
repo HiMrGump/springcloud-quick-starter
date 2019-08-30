@@ -67,6 +67,11 @@ spring:
     database: 0
     port: 6379
     password:
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cacheEnabled: true                               #开启二级缓存
+    mapUnderscoreToCamelCase: true                 #驼峰的自动映射
 
 #logging日志
 logging:

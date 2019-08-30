@@ -7,6 +7,8 @@ import com.project.user.dao.RoleDao;
 import com.project.user.entity.RoleEntity;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 该类实现了XXXX相关操作接口的具体功能
  *
@@ -18,8 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleService extends MyBatisServiceImpl<RoleEntity> implements BaseService<RoleEntity> {
 
+    @Resource
+    RoleDao roleDao;
+
     @Override
     public BaseDao getDao() {
-        return null;
+        return roleDao;
     }
 }

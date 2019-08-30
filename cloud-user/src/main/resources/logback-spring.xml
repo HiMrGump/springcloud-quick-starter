@@ -150,7 +150,16 @@
         <logger name="com.project.user.controller" level="OFF" additivity="false"/>
     -->
 
-    <root level="info">
+    <!--
+         name:包名
+         level:打印级别,为OFF时则是关闭日志
+         additivity:false则不往上传播
+    -->
+    <!--
+        <logger name="com.project.user.controller" level="DEBUG" additivity="false"/>
+    -->
+
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="DEBUG_FILE" />
         <appender-ref ref="INFO_FILE" />
