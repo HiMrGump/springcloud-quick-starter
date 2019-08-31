@@ -3,6 +3,7 @@ package com.project.common.service;
 import com.project.common.db.DBHelper;
 import com.project.common.entity.BaseEntity;
 import com.project.util.PageHelper;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.Serializable;
 import java.util.List;
@@ -38,7 +39,11 @@ public interface BaseService<E extends BaseEntity> {
 
     public List<E> list(E entity);
 
-    public PageHelper<E> listByPage(E e);
+    public List<E> list(DBHelper dbHelper);
+
+    public PageHelper<E> listByPage(E entity);
+
+    public PageHelper<E> listByPage(PageHelper<E> pageHelper,DBHelper dbHelper);
 
     public int delete(String id);
 

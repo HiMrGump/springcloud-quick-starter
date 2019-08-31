@@ -27,6 +27,7 @@ public class UserEntity extends BaseEntity {
     //账户名
     private String accountName;
     //密码
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     //用户别名
     private String userAlias;

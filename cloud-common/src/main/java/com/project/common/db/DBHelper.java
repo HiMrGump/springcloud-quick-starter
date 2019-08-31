@@ -3,7 +3,6 @@ package com.project.common.db;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
@@ -33,8 +32,28 @@ public class DBHelper {
             return this;
         }
 
+        if(DBOperation.BETWEEN != operation ){
+            if(!isAdd(valueArr[0])){
+                  return this;
+            }
+        }
+
         operationList.add(new FiledRelation(operation, filedName, valueArr));
         return this;
+    }
+
+    //是否不执行该拼接where条件操作,true加入,false拒绝
+    private boolean isAdd(Object val1){
+        if(val1 == null){
+            return false;
+        }
+        if(val1.getClass().getName() == "java.lang.String"){
+            String valStr1 = (String)val1;
+            if(StringUtils.isBlank(valStr1) || "null".equalsIgnoreCase(valStr1) || "undefined".equalsIgnoreCase(valStr1)){
+                return false;
+            }
+        }
+        return true;
     }
 
     @Data

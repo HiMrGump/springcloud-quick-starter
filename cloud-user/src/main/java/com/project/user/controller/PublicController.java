@@ -9,6 +9,8 @@ package com.project.user.controller;
  * @Version: 1.0
  */
 
+import com.project.common.db.DBHelper;
+import com.project.common.db.DBOperation;
 import com.project.user.entity.UserEntity;
 import com.project.user.service.UserService;
 import com.project.util.BCryptUtils;
@@ -29,15 +31,25 @@ public class PublicController {
         return ResponseResult.success(userService.getByAccountName(accountName));
     }
 
-    //
+    //列表查询
     @GetMapping("/list")
     public ResponseResult list(@RequestBody UserEntity entity){
-      /*  DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "account_name", entity.getAccountName());
-        return ResponseResult.success(userService.list(dbHelper));*/
-        return ResponseResult.success(userService.list(entity));
+        DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "accountName", entity.getAccountName())
+                .addOperation(DBOperation.EQ,"userEmail",entity.getUserEmail())
+                .addOperation(DBOperation.GE,"enable",entity.getEnable());
+        return ResponseResult.success(userService.list(dbHelper));
     }
 
-   //开放的接口
+    //分页查询
+     @GetMapping("/page")
+    public ResponseResult page(@RequestBody UserEntity entity){
+         DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "accountName", entity.getAccountName())
+                 .addOperation(DBOperation.EQ,"userEmail",entity.getUserEmail())
+                 .addOperation(DBOperation.GE,"enable",entity.getEnable());
+        return ResponseResult.success(userService.listByPage(entity.buildPageHelper(),dbHelper));
+    }
+
+   //保存
     @PostMapping("/save")
     public ResponseResult save(@RequestBody UserEntity entity){
         entity.setPassword(BCryptUtils.encode(entity.getPassword()));
@@ -46,25 +58,19 @@ public class PublicController {
         return ResponseResult.success();
     }
 
-    //开放的接口
+    //字段不为null则修改,id必传
     @PostMapping("/update")
     public ResponseResult update(@RequestBody UserEntity entity){
         userService.updateBySelective(entity);
         return ResponseResult.success();
     }
 
-    //开放的接口
+    //删除
     @GetMapping("/delete/{id}")
     public ResponseResult delete(@PathVariable(name = "id") String id){
         userService.delete(id);
         return ResponseResult.success();
     }
 
-    //开放的接口
-   /*  @GetMapping("/page")
-    public ResponseResult page(@RequestBody UserEntity entity){
-        DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "account_name", entity.getAccountName()).addOperation(DBOperation.EQ,"enable",entity.getEnable());
-        return ResponseResult.success(userService.listByPage(entity.buildPageHelper(),dbHelper));
-    }*/
 
 }

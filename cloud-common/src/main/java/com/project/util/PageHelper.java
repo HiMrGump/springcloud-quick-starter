@@ -15,9 +15,9 @@ import java.util.List;
 @Data
 public class PageHelper<E> {
     //当前页,默认1
-    private long currentPage = 1;
+    private int currentPage = 1;
     //页大小,默认20
-    private long pageSize = 20;
+    private int pageSize = 20;
     //数据总数
     private long total;
     //数据
