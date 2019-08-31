@@ -1,4 +1,4 @@
-package com.project.user.quartz;
+package com.project.util.quartz;
 
 import com.project.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -19,7 +19,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @EnableThriftServer
 @EnableFeignClients
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.project")
 public class UserApplication {
 
     public static void main(String[] args) {

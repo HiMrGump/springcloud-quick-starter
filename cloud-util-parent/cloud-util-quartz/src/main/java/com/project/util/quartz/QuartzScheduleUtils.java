@@ -1,10 +1,8 @@
-package com.project.user.quartz;
+package com.project.util.quartz;
 
-import com.project.util.ApplicationContextUtil;
 import com.project.util.DateUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
