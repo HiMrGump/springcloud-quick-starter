@@ -393,4 +393,23 @@ CREATE TABLE `t_user_role`  (
 INSERT INTO `t_user_role` VALUES ('1', '2');
 INSERT INTO `t_user_role` VALUES ('1', '3');
 
+
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `t_dict`;
+CREATE TABLE `t_dict`  (
+  `id` varchar(64) NOT NULL COMMENT '主键',
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典名称',
+  `type` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典类型',
+  `code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典码',
+  `value` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '字典值',
+  `sort_index` int(4) NULL DEFAULT 0 COMMENT '排序',
+  `create_date` datetime(0) NOT NULL COMMENT '创建时间',
+  `last_modify_date` datetime(0) NOT NULL COMMENT '最后修改时间',
+  `last_modify_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '最后修改人',
+  `delete_flag` int(1) NOT NULL COMMENT '删除状态,0-正常,1删除',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB  CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据字典表' ROW_FORMAT = Compact;
+
 SET FOREIGN_KEY_CHECKS = 1;

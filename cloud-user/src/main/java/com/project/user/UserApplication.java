@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.context.request.RequestContextListener;
 
 /**
  * 该类实现了XXXX相关操作接口的具体功能
@@ -21,6 +23,11 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @SpringBootApplication(scanBasePackages = "com.project")
 public class UserApplication {
+
+    @Bean
+    public RequestContextListener requestContextListener(){
+        return new RequestContextListener();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);

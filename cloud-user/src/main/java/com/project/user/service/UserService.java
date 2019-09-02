@@ -1,6 +1,5 @@
 package com.project.user.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.project.common.dao.BaseDao;
 import com.project.common.service.BaseService;
 import com.project.common.service.MyBatisServiceImpl;
@@ -9,9 +8,7 @@ import com.project.user.dao.UserDao;
 import com.project.user.entity.UserEntity;
 import com.project.user.pojo.UserRoleVO;
 import com.project.util.BeanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.security.jwt.Jwt;
-import org.springframework.security.jwt.JwtHelper;
+import com.project.util.JwtUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -65,16 +62,11 @@ public class UserService extends MyBatisServiceImpl<UserEntity> implements BaseS
     public Optional<UserEntity> getCurrentLoginUser(){
         HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
         String authentication = request.getHeader("Authorization");
-
-        if(StringUtils.isBlank(authentication)){
-            return Optional.empty();
+        Optional<JwtUtils.JwtDetail> jwtDetail = JwtUtils.parseJwt(authentication);
+        if(jwtDetail.isPresent()){
+            return get(jwtDetail.get().getUserId());
         }
-        authentication = authentication.substring(7);
-        Jwt jwt = JwtHelper.decode(authentication);
-        String claims = jwt.getClaims();
-        JSONObject jsonObject = (JSONObject) JSONObject.parse(claims);
-        String userId = jsonObject.getString("userId");
-        return get(userId);
+        return Optional.empty();
     }
 
     @Override

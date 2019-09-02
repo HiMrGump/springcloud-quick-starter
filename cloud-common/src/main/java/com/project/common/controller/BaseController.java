@@ -2,8 +2,13 @@ package com.project.common.controller;
 
 import com.project.common.entity.BaseEntity;
 import com.project.common.service.BaseService;
+import com.project.util.JwtUtils;
 import com.project.util.ResponseResult;
+import com.project.validate.ValidateGroup;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 /**
  * 该类实现了XXXX相关操作接口的具体功能
@@ -13,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date: Created in 2019/6/6 10:24
  * @Version: 1.0
  */
-public abstract class BaseController{
+public abstract class BaseController<E extends BaseEntity>{
 
     public abstract BaseService getService();
 
@@ -33,7 +38,12 @@ public abstract class BaseController{
      * @return
      */
     @PostMapping("/save")
-    public ResponseResult save(@RequestBody BaseEntity entity){
+    public ResponseResult save(@RequestHeader(value = "Authorization",required = false) String auth,@RequestBody @Validated(value = {ValidateGroup.Insert.class}) E entity){
+        Optional<JwtUtils.JwtDetail> jwtDetailOptional = JwtUtils.parseJwt(auth);
+        if(jwtDetailOptional.isPresent()){
+            JwtUtils.JwtDetail jwtDetail = jwtDetailOptional.get();
+            entity.setLastModifyBy(jwtDetail.getUserAlias());
+        }
         getService().save(entity);
         return ResponseResult.success();
     }
@@ -44,8 +54,13 @@ public abstract class BaseController{
      * @return
      */
     @PutMapping("/update")
-    public ResponseResult update(@RequestBody BaseEntity entity){
-        getService().update(entity);
+    public ResponseResult update(@RequestHeader(value = "Authorization",required = false) String auth,@RequestBody @Validated(value = {ValidateGroup.Update.class}) E entity){
+        Optional<JwtUtils.JwtDetail> jwtDetailOptional = JwtUtils.parseJwt(auth);
+        if(jwtDetailOptional.isPresent()){
+            JwtUtils.JwtDetail jwtDetail = jwtDetailOptional.get();
+            entity.setLastModifyBy(jwtDetail.getUserAlias());
+        }
+        getService().updateBySelective(entity);
         return ResponseResult.success();
     }
 

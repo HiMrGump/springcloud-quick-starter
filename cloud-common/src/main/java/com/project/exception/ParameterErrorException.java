@@ -14,8 +14,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ParameterErrorException extends RuntimeException{
-    //参数错误描述
-    String msg;
+
+    public ParameterErrorException(String message) {
+        super(message);
+    }
 }
 
 

@@ -6,26 +6,17 @@
         <artifactId>cloud-parent</artifactId>
         <groupId>com.project</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-user</artifactId>
+    <artifactId>cloud-base</artifactId>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.project</groupId>
-            <artifactId>cloud-thrift</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
         <dependency>
             <groupId>com.project</groupId>
             <artifactId>cloud-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -54,7 +45,7 @@
         </dependency>
 
         <!-- oauth2.0 -->
-       <dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
@@ -71,18 +62,6 @@
             <artifactId>spring-security-jwt</artifactId>
         </dependency>
 
-        <!-- thrift server -->
-        <dependency>
-            <groupId>io.ostenant.rpc.thrift</groupId>
-            <artifactId>spring-cloud-starter-thrift-server</artifactId>
-        </dependency>
-
-        <!-- okhttp for Thrift -->
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -92,7 +71,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.project.user.UserApplication</mainClass>
+                    <mainClass>com.project.base.BaseApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -104,7 +83,5 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 </project>

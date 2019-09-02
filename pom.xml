@@ -9,6 +9,7 @@
         <module>cloud-auth</module>
         <module>cloud-user</module>
         <module>cloud-util-parent</module>
+        <module>cloud-base</module>
     </modules>
 
     <parent>
@@ -51,6 +52,7 @@
         <reactor.version>3.2.8.RELEASE</reactor.version>
         <tk.mybatis.version>2.1.5</tk.mybatis.version>
         <pagehelper.version>1.2.10</pagehelper.version>
+        <validation.version>2.0.1.Final</validation.version>
     </properties>
 
 
@@ -203,7 +205,11 @@
                 <version>${spring.boot.version}</version>
             </dependency>
 
-
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

@@ -2,16 +2,18 @@ package com.project.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.util.PageHelper;
+import com.project.validate.ValidateGroup;
 import lombok.Data;
 import tk.mybatis.mapper.annotation.LogicDelete;
 import tk.mybatis.mapper.annotation.Order;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 实体基类
  *
  * @ClassName: BaseEntity
  * @Author: WangQingYun
@@ -23,6 +25,7 @@ public abstract class BaseEntity implements Serializable {
     //主键
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator="JDBC")
+    @NotNull(groups = {ValidateGroup.Update.class},message = "主键必填")
     private String id;
 
     //创建时间
@@ -31,10 +34,12 @@ public abstract class BaseEntity implements Serializable {
 
     //最后修改时间
     @Column(name = "last_modify_date")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //不进行序列化
     private Date lastModifyDate;
 
     //最后修改人
     @Column(name = "last_modify_by")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) //不进行序列化
     private String lastModifyBy;
 
     //删除状态,0-正常,1删除

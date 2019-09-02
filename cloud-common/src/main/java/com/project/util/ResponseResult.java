@@ -34,16 +34,20 @@ public class ResponseResult {
         this.data = data;
     }
 
-
     public static ResponseResult success(){
         return new ResponseResult(ResultCode.SUCCESS);
     }
-
 
     public static ResponseResult parameterError(){
         return new ResponseResult(ResultCode.PARAM_ERROR);
     }
 
+    public static ResponseResult parameterError(String msg){
+        ResponseResult responseResult = new ResponseResult();
+        responseResult.setCode(ResultCode.PARAM_ERROR.getCode());
+        responseResult.setMsg(msg);
+        return responseResult;
+    }
 
     public static ResponseResult error(){
         return new ResponseResult(ResultCode.SYSTEM_ERROR);

@@ -4,7 +4,7 @@ redis.ip: 127.0.0.1
 
 #定义端口
 server:
-  port: 7100
+  port: 7300
 
 spring:
   output:
@@ -13,7 +13,7 @@ spring:
       enabled: always
   #定义应用名
   application:
-    name: cloud-auth
+    name: cloud-base
   datasource:
     url: jdbc:mysql://${datasource.ip}:3306/cloud-module?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
@@ -52,16 +52,27 @@ spring:
         service-name: ${spring.application.name}
 
   thrift:
-    client:
-      package-to-scan: com.project.auth.thrift # 标记有注解@ThriftClient接口的包路径
+    server:
+      service-id: base-service-thrift
       service-model: hsHa
-      pool:
-        retry-times: 3
-        pool-max-total-per-key: 200
-        pool-min-idle-per-key: 10
-        pool-max-idle-per-key: 40
-        pool-max-wait: 1000
-        connect-timeout: 100000
+      port: 25000
+      worker-queue-capacity: 1000
+      hs-ha:
+        min-worker-threads: 5
+        max-worker-threads: 20
+        keep-alived-time: 3
+      discovery:
+        enabled: true
+        host: ${consul.ip}
+        port: 8500
+        deregister: true
+        tags:
+          - base-service-thrift
+          - hsHa
+        health-check:
+          enabled: true
+          check-interval: 10
+          check-timeout: 3
 
   #防止Date类型返到前端是时间戮
   jackson:
@@ -74,16 +85,39 @@ spring:
     database: 0
     port: 6379
     password:
+
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never
+    properties:
+      org:
+        quartz:
+          scheduler:
+            # 如果使用集群，实例名需相同
+            instanceName: clusteredScheduler
+            # 如果使用集群，id需相同
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+            tablePrefix: QRTZ_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 10
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
+
+
+#整合mybatis
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     cacheEnabled: true                               #开启二级缓存
     mapUnderscoreToCamelCase: true                 #驼峰的自动映射
-
-#logging日志
-logging:
-  level:
-    com.project: DEBUG
 
 ##actuator监控，暴露所有端点，访问时需加前缀，/actuator/env
 management:
