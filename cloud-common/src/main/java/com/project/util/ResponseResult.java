@@ -1,6 +1,6 @@
 package com.project.util;
 
-import com.project.common.entity.ResultCode;
+import com.project.constant.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,7 +54,7 @@ public class ResponseResult {
     }
 
     public static ResponseResult serviceDown(){
-        return new ResponseResult(ResultCode.SERVICE_DOWN_ERROR);
+        return new ResponseResult(ResultCode.SERVICE_DOWNGRADE_ERROR);
     }
 
     public static ResponseResult success(Object data){

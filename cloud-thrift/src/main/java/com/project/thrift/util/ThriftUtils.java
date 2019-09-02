@@ -2,7 +2,7 @@ package com.project.thrift.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.project.common.entity.ResultCode;
+import com.project.constant.ResultCode;
 import com.project.thrift.entity.ThriftResponseResult;
 import org.apache.commons.lang.StringUtils;
 

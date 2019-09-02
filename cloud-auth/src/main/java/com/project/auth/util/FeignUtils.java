@@ -2,7 +2,7 @@ package com.project.auth.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.project.auth.dto.UserDTO;
-import com.project.common.entity.ResultCode;
+import com.project.constant.ResultCode;
 import com.project.util.ResponseResult;
 
 import java.util.LinkedHashMap;
@@ -26,7 +26,7 @@ public class FeignUtils {
         if (responseResult == null) {
             return true;
         }
-        return responseResult.getCode().equals(ResultCode.SERVICE_DOWN_ERROR.getCode());
+        return responseResult.getCode().equals(ResultCode.SERVICE_DOWNGRADE_ERROR.getCode());
     }
 
     public static UserDTO packageUserVO(ResponseResult responseResult){
