@@ -17,6 +17,7 @@ public class FeignConfig {
 	//打印feign日志
 	@Bean
 	public Logger.Level feignLoggerLevel(){
+		System.out.println("注册");
 		return Logger.Level.FULL;
 	}
 

@@ -21,13 +21,8 @@ import org.springframework.web.context.request.RequestContextListener;
 @EnableDiscoveryClient
 @EnableThriftServer
 @EnableFeignClients
-@SpringBootApplication(scanBasePackages = "com.project")
+@SpringBootApplication(scanBasePackages = "com.project.user")
 public class UserApplication {
-
-    @Bean
-    public RequestContextListener requestContextListener(){
-        return new RequestContextListener();
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class, args);
