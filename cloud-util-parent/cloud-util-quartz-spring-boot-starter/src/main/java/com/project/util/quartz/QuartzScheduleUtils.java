@@ -4,7 +4,6 @@ import com.project.util.DateUtils;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -18,7 +17,6 @@ import java.util.HashSet;
  * @Date: Created in 2019/8/27 11:05
  * @Version: 1.0
  */
-@Component
 public class QuartzScheduleUtils {
 
     @Autowired

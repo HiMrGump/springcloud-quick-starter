@@ -4,7 +4,6 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.Date;
@@ -28,7 +27,6 @@ import java.util.concurrent.TimeUnit;
  * @Version: 1.0
  */
 
-@Component
 public class RedisDistrbuteLock implements DistrbuteLock {
 
     //分布式锁前缀

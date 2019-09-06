@@ -9,9 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <packaging>jar</packaging>
-
-    <artifactId>cloud-util-lock</artifactId>
+    <artifactId>cloud-util-lock-spring-boot-starter</artifactId>
 
     <dependencies>
         <!-- redis -->
@@ -21,5 +19,6 @@
         </dependency>
 
     </dependencies>
+
 
 </project>

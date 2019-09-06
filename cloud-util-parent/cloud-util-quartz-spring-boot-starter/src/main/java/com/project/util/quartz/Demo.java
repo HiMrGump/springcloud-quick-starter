@@ -1,9 +1,11 @@
+/*
 package com.project.util.quartz;
 
 import com.project.util.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
+*/
 /**
  *  集成quartz示例代码
  *
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @Author: WangQingYun
  * @Date: Created in 2019/8/27 14:15
  * @Version: 1.0
- */
+ *//*
+
 public class Demo {
 
     @Autowired
@@ -72,3 +75,4 @@ public class Demo {
         return ResponseResult.success();
     }
 }
+*/

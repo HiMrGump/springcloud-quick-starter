@@ -10,8 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>cloud-util-lock</module>
-        <module>cloud-util-quartz</module>
+        <module>cloud-util-quartz-spring-boot-starter</module>
+        <module>cloud-util-lock-spring-boot-starter</module>
     </modules>
 
     <artifactId>cloud-util-parent</artifactId>
