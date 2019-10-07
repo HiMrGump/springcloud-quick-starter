@@ -11,7 +11,7 @@ import org.apache.thrift.TException;
 import javax.annotation.Resource;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类实现了RPC调用user-service相关操作
  *
  * @ClassName: ThriftUserServiceImpl
  * @Author: WangQingYun

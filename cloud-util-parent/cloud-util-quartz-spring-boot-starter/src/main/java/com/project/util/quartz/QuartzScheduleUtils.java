@@ -1,6 +1,6 @@
 package com.project.util.quartz;
 
-import com.project.util.DateUtils;
+import cn.hutool.core.date.DateUtil;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
@@ -34,7 +34,7 @@ public class QuartzScheduleUtils {
                 jobDescription = job.getJobDescription();
 
             if (checkExists(jobName, jobGroup)) {
-                String createTime = DateUtils.formatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
+                String createTime = DateUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss");
                 Scheduler scheduler = getScheduler();
                 TriggerKey triggerKey = TriggerKey.triggerKey(jobName, jobGroup);
                 JobKey jobKey = new JobKey(jobName, jobGroup);

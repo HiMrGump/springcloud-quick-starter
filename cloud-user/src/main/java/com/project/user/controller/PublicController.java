@@ -15,11 +15,13 @@ import com.project.user.entity.UserEntity;
 import com.project.user.service.UserService;
 import com.project.util.BCryptUtils;
 import com.project.util.ResponseResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
+@Slf4j
 public class PublicController {
 
     @Autowired
@@ -34,6 +36,9 @@ public class PublicController {
     //列表查询
     @GetMapping("/list")
     public ResponseResult list(@RequestBody UserEntity entity){
+        log.info("I am user info log");
+        log.warn("I am user warn log");
+        log.error("I am user error log");
         DBHelper dbHelper = DBHelper.build().addOperation(DBOperation.LIKE, "accountName", entity.getAccountName())
                 .addOperation(DBOperation.EQ,"userEmail",entity.getUserEmail())
                 .addOperation(DBOperation.GE,"enable",entity.getEnable());

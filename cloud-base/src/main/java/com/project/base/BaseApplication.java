@@ -6,14 +6,13 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 启动上下文
  *
  * @ClassName: AuthApplication
  * @Author: WangQingYun
  * @Date: Created in 2019/5/28 11:36
  * @Version: 1.0
  */
-
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication

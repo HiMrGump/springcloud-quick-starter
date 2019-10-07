@@ -1,7 +1,7 @@
 package com.project.util;
 
 
-import org.apache.commons.lang3.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 该类实现了手机号正则验证
@@ -17,7 +17,7 @@ public class PhoneUtils {
     static String TEL_REGEX = "^\\d{3}-\\d{8}|\\d{4}-\\d{7}$"; //座机正则
     //正则判断是否是手机号
     public static boolean isPhone(String phone){
-        if(StringUtils.isBlank(phone)){
+        if(StrUtil.isBlank(phone)){
             return false;
         }
         return phone.matches(MOBILE_REGEX) || phone.matches(TEL_REGEX);
@@ -25,7 +25,7 @@ public class PhoneUtils {
 
     //正则判断是否是手机号
     public static boolean isMobile(String mobile){
-        if(StringUtils.isBlank(mobile)){
+        if(StrUtil.isBlank(mobile)){
             return false;
         }
         return mobile.matches(MOBILE_REGEX);

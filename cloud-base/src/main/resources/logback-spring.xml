@@ -141,6 +141,14 @@
         </filter>
     </appender>
 
+
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>127.0.0.1:5044</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"serviceName":"cloud-base"}</customFields>
+        </encoder>
+    </appender>
+
     <!--
          name:包名
          level:打印级别,为OFF时则是关闭日志
@@ -161,10 +169,7 @@
 
     <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
-        <appender-ref ref="DEBUG_FILE" />
-        <appender-ref ref="INFO_FILE" />
-        <appender-ref ref="WARN_FILE" />
-        <appender-ref ref="ERROR_FILE" />
+        <appender-ref ref="LOGSTASH"/>
     </root>
 
 

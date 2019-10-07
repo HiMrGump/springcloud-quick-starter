@@ -1,7 +1,7 @@
 package com.project.constant;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类定义了redis的前缀
  *
  * @ClassName: RedisPrefixConstant
  * @Author: WangQingYun

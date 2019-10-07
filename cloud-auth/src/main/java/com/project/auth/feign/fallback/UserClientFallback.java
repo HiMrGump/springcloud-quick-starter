@@ -7,9 +7,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * @author TerryYu
- * @date 2019-04-10
- * 用户服务的fallback
+ *  user服务feign降级处理
+ *
+ * @ClassName: UserClientFallback
+ * @Author: WangQingYun
+ * @Date: Created in 2019/5/21 10:50
+ * @Version: 1.0
  */
 @Service
 @Slf4j

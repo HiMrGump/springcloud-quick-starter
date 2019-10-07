@@ -8,7 +8,7 @@ import com.project.util.ResponseResult;
 import java.util.LinkedHashMap;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * Feign工具类
  *
  * @ClassName: FeignUtils
  * @Author: WangQingYun

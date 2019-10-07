@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * 定义了一些简单的工具
- * @ClassName: SchedulerUtil
+ * @ClassName: SimpleUtils
  * @Author: WangQingYun
  * @Date: Created in 2019/4/22 16:45
  * @Version: 1.0

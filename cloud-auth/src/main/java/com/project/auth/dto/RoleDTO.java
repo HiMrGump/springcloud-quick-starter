@@ -4,7 +4,7 @@ import com.project.common.entity.BaseEntity;
 import lombok.Data;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 角色DTO
  *
  * @ClassName: RoleDTO
  * @Author: WangQingYun

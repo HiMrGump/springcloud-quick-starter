@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * oAuth2资源服务器
  *
  * @ClassName: ResourceServerConfig
  * @Author: WangQingYun

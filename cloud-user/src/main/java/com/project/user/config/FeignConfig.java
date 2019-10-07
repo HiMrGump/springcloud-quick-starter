@@ -10,14 +10,20 @@ import org.springframework.format.FormatterRegistry;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * feign配置
+ *
+ * @ClassName: FeignConfig
+ * @Author: WangQingYun
+ * @Date: Created in 2019/8/31 18:21
+ * @Version: 1.0
+ */
 @Configuration
 public class FeignConfig {
 
 	//打印feign日志
 	@Bean
 	public Logger.Level feignLoggerLevel(){
-		System.out.println("注册");
 		return Logger.Level.FULL;
 	}
 

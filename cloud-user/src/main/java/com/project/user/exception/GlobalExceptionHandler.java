@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     public ResponseResult handlerException(BindException e){
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {
-            String errorMessage = bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.joining());
+            String errorMessage = bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.joining(","));
             return ResponseResult.parameterError(errorMessage);
         }
         return ResponseResult.parameterError();
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
     public ResponseResult handlerMethodArgumentNotValidException(MethodArgumentNotValidException e){
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {
-            String errorMessage = bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.joining());
+            String errorMessage = bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.joining(","));
             return ResponseResult.parameterError(errorMessage);
         }
         return ResponseResult.parameterError();
@@ -88,7 +88,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public ResponseResult handlerException(Exception e){
-        log.error(">>>>>>>>>>捕获未知异常",e);
+        log.error("catch an uncheck exception.",e);
         return ResponseResult.error();
     }
 }

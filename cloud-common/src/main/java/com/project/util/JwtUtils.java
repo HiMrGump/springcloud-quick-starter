@@ -1,10 +1,10 @@
 package com.project.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSONObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 
@@ -27,7 +27,7 @@ public class JwtUtils {
      * @return
      */
     public static Optional<JwtDetail> parseJwt(String authentication){
-        if(StringUtils.isBlank(authentication)){
+        if(StrUtil.isBlank(authentication)){
             return Optional.empty();
         }
         authentication = authentication.substring(7); //替换掉bearer

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * controller统一返回的实体
  *
  * @ClassName: ResponseResult
  * @Author: WangQingYun

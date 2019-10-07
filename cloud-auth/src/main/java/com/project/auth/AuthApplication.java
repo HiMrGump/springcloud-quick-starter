@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 启动上下文
  *
  * @ClassName: AuthApplication
  * @Author: WangQingYun

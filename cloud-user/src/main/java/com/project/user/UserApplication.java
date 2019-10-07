@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.request.RequestContextListener;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 启动上下文
  *
  * @ClassName: AuthApplication
  * @Author: WangQingYun

@@ -5,11 +5,11 @@ import com.project.user.entity.UserEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类定义了用户数据库操作基本接口
  *
- * @ClassName: UserMapper
+ * @ClassName: UserDao
  * @Author: WangQingYun
- * @Date: Created in 2019/5/21 14:23
+ * @Date: Created in 2019/6/14 11:30
  * @Version: 1.0
  */
 @Mapper

@@ -1,6 +1,6 @@
 package com.project.util.lock;
 
-import org.apache.commons.lang3.time.DateUtils;
+import cn.hutool.core.date.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -65,7 +65,7 @@ public class RedisDistrbuteLock implements DistrbuteLock {
         if(timeout <= 0){
             throw new RuntimeException("请给定一个大于0的超时时间");
         }
-        Date afterCurrentDate = DateUtils.addSeconds(new Date(), timeout); //计算超时日期
+        Date afterCurrentDate = DateUtil.offsetSecond(new Date(), timeout).toJdkDate();//计算超时日期
 
         while(true){
             if(redisTemplate.opsForValue().setIfAbsent(getRedisKey(lockKey,requestId),requestId,EXPIRE_IN_SECOND, TimeUnit.SECONDS)){

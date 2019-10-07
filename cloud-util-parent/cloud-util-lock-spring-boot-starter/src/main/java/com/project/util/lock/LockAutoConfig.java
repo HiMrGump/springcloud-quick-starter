@@ -1,10 +1,11 @@
 package com.project.util.lock;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 分布式锁自动配置
  *
  * @ClassName: LockAutoConfig
  * @Author: WangQingYun
@@ -13,8 +14,12 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class LockAutoConfig {
-
+    /**
+     * 如果不存在DistrbuteLock则注入，即使用RedisDistrbuteLock作为默认的分布式锁配置
+     * @return
+     */
     @Bean
+    @ConditionalOnMissingBean(DistrbuteLock.class)
     public DistrbuteLock RedisDistrbuteLock(){
         return new RedisDistrbuteLock();
     }

@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 /**
- * 查询网关的路由信息
+ * 获取动态路由接口
+ *
+ * @ClassName: DynamicRouteController
+ * @Author: WangQingYun
+ * @Date: Created in 2019/9/2 17:23
+ * @Version: 1.0
  */
 @RestController
 @RequestMapping("/dynamicRoute")

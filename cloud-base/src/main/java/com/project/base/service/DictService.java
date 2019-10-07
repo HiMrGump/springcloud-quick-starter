@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类实现了字典相关操作的具体功能
  *
  * @ClassName: DictService
  * @Author: WangQingYun

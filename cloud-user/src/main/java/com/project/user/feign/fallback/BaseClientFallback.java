@@ -8,11 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ *  该类定义了base服务feign降级处理
  *
- * @ClassName: DictClientFallback
+ * @ClassName: BaseClientFallback
  * @Author: WangQingYun
- * @Date: Created in 2019/8/31 17:49
+ * @Date: Created in 2019/5/21 10:50
  * @Version: 1.0
  */
 @Service

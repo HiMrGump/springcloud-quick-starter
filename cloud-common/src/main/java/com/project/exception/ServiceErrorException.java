@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 业务异常定义
  *
  * @ClassName: ServiceErrorException
  * @Author: WangQingYun

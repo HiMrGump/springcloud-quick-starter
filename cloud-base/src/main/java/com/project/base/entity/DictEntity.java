@@ -10,7 +10,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+/**
+ *  字典表
+ *
+ * @ClassName: DictEntity
+ * @Author: WangQingYun
+ * @Date: Created in 2019/8/31 16:52
+ * @Version: 1.0
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

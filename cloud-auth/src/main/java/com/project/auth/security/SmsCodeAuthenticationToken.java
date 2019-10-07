@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 拓展spring security短信登录的token
  *
  * @ClassName: SmsCodeAuthenticationToken
  * @Author: WangQingYun

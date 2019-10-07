@@ -5,7 +5,7 @@ import com.project.common.dao.BaseDao;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类定义了字典操作接口
  *
  * @ClassName: DictDao
  * @Author: WangQingYun

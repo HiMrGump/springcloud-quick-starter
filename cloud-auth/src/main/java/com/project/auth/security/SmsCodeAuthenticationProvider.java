@@ -6,6 +6,7 @@ import com.project.auth.thrift.ThriftUserServiceClient;
 import com.project.thrift.entity.ThriftResponseResult;
 import com.project.thrift.util.ThriftUtils;
 import com.project.util.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,14 +19,15 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ *  拓展spring security短信登陆的方式
  *
- * @ClassName: SmsCodeAuthenticationProvider
+ * @ClassName: MyUserDetailsService
  * @Author: WangQingYun
- * @Date: Created in 2019/6/24 17:51
+ * @Date: Created in 2019/5/21 10:50
  * @Version: 1.0
  */
 @Component
+@Slf4j
 public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
     @Resource
@@ -35,13 +37,11 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try{
-            System.out.println("手机登陆》》》》》》》》》》》》》》》》》》》》》》》》");
             //接受未认证的SmsCodeAuthenticationToken
-            System.out.println(authentication);
             SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
             String mobile = (String) authenticationToken.getPrincipal();
             String smsCode = authenticationToken.getSmsCode();
-            System.out.println("手机号是：" + mobile + ",准备验证验证码：" + smsCode);
+            log.debug("SMS login,find params{mobile:{},smsCode:{}}",mobile,smsCode);
             if(!"888888".equals(smsCode)){
                 throw new BadCredentialsException("验证码错误");
             }
@@ -51,7 +51,6 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
             if(!userDTOOptional.isPresent()){
                 throw new BadCredentialsException("找不到用户,请重试");
             }
-            System.out.println("用户是:" + userDTOOptional.get());
             //重新构建SmsCodeAuthenticationToken（已认证）
             SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken( build(userDTOOptional.get()));
             authenticationResult.setDetails(authenticationToken.getDetails());

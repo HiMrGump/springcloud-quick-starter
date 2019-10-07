@@ -6,7 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 路由模型
+ * 路由定义
+ *
+ * @ClassName: GatewayPredicateDefinition
+ * @Author: WangQingYun
+ * @Date: Created in 2019/6/18 9:35
+ * @Version: 1.0
  */
 @Data
 public class GatewayRouteDefinition {

@@ -4,8 +4,7 @@ import com.project.common.entity.BaseEntity;
 import tk.mybatis.mapper.common.BaseMapper;
 
 /**
- * 该接口描述了XXXX操作的功能定义
- *
+ * 自定义BaseDao，并继承了TkMybatis相关功能
  * @ClassName: BaseDao
  * @Author: WangQingYun
  * @Date: Created in 2019/5/21 11:31

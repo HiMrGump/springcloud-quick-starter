@@ -5,6 +5,7 @@ import com.project.auth.thrift.ThriftUserServiceClient;
 import com.project.thrift.entity.ThriftResponseResult;
 import com.project.thrift.util.ThriftUtils;
 import com.project.util.BeanUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,12 +16,15 @@ import javax.annotation.Resource;
 import java.util.Optional;
 
 /**
- * 用户信息获取
+ *  spring security账号密码获取用户信息的方式
  *
- * @author TerryYu
- * @date 2019-04-10 17:01
+ * @ClassName: MyUserDetailsService
+ * @Author: WangQingYun
+ * @Date: Created in 2019/5/21 10:50
+ * @Version: 1.0
  */
 @Service
+@Slf4j
 public class MyUserDetailsService implements UserDetailsService {
 
    /* @Resource
@@ -39,13 +43,12 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            System.out.println("账号密码登陆》》》》》》》》》》》》》》》》》》》》》》》》");
+            log.debug("Account password login,find params{username:{}}",username);
             ThriftResponseResult thriftResponseResult = userServiceClient.client().getByAccountName(username);
             Optional<UserDTO> userDTOOptional = ThriftUtils.parseObject(thriftResponseResult, UserDTO.class);
             if(!userDTOOptional.isPresent()){
                 throw new UsernameNotFoundException("找不到用户,请重试");
             }
-            System.out.println(userDTOOptional.get());
             return build(userDTOOptional.get());
         } catch (TException e) {
             e.printStackTrace();

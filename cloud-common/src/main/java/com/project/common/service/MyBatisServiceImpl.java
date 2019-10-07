@@ -1,14 +1,12 @@
 package com.project.common.service;
 
-import com.github.pagehelper.IPage;
-import com.github.pagehelper.Page;
+import cn.hutool.core.util.IdUtil;
 import com.github.pagehelper.PageInfo;
 import com.project.common.dao.BaseDao;
 import com.project.common.db.DBHelper;
 import com.project.common.db.DBOperation;
 import com.project.common.entity.BaseEntity;
 import com.project.exception.ParameterErrorException;
-import com.project.util.IDUtils;
 import com.project.util.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,10 +20,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * 这个类实现了XXXX相关功能
+ * 该类实现了service层的基本操作
  *
- * @Author Gump
- * @Date 2019/8/2415:48
+ * @ClassName: MyBatisServiceImpl
+ * @Author WangQingYun
+ * @Date Created in 2019/8/29 14:06
  * @Version 1.0
  **/
 public abstract class MyBatisServiceImpl<E extends BaseEntity> implements BaseService<E>{
@@ -162,7 +161,7 @@ public abstract class MyBatisServiceImpl<E extends BaseEntity> implements BaseSe
 
     @Transactional
     public int save(E entity){
-        entity.setId(IDUtils.generate());
+        entity.setId(IdUtil.simpleUUID());
         entity.setCreateDate(new Date());
         entity.setLastModifyDate(new Date());
         entity.setDeleteFlag(0);

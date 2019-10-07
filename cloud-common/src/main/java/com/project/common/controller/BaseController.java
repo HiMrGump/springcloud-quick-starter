@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该抽象类抽取了控制器的增删改查相关操作
  *
  * @ClassName: BaseController
  * @Author: WangQingYun

@@ -10,6 +10,9 @@ import org.springframework.format.FormatterRegistry;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * feign配置
+ */
 @Configuration
 public class FeignConfig {
 

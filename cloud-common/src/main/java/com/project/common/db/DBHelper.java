@@ -8,10 +8,11 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 
 /**
- * 这个类实现了XXXX相关功能
+ * 这个类实现了数据库查询条件拼接工具类
  *
- * @Author Gump
- * @Date 2019/8/2410:08
+ * @ClassName: DBHelper
+ * @Author WangQingYun
+ * @Date Created in 2019/8/29 14:06
  * @Version 1.0
  **/
 @Data
@@ -25,7 +26,7 @@ public class DBHelper {
 
     public DBHelper addOperation(DBOperation operation,String filedName,Object...valueArr){
         if(operation == null || valueArr == null || StringUtils.isBlank(filedName)){
-           throw new IllegalArgumentException("操作类型,字段名,操作值必填");
+           throw new IllegalArgumentException("Operation type,Field name,Operation Values must be given.");
         }
 
         if(valueArr == null || valueArr.length == 0){
@@ -56,6 +57,9 @@ public class DBHelper {
         return true;
     }
 
+    /**
+     * 该接口定义了字段名、值、操作的映射关系
+     */
     @Data
     @AllArgsConstructor
     public class FiledRelation{

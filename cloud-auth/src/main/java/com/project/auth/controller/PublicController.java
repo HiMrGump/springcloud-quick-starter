@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 公开接口
  *
- * @ClassName: TestController
+ * @ClassName: PublicController
  * @Author: WangQingYun
  * @Date: Created in 2019/5/30 10:41
  * @Version: 1.0
@@ -21,6 +21,11 @@ public class PublicController {
   /*  @Autowired
     private StringRedisTemplate redisTemplate;*/
 
+    /**
+     * 发送短信
+     * @param phone 手机号码
+     * @return
+     */
     @RequestMapping("/sendSMS/{phone}")
     public ResponseResult sendSMS(@PathVariable("phone") String phone){
         String code = RandomStringUtils.randomNumeric(6);

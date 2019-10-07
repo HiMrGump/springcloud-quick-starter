@@ -1,5 +1,12 @@
 package com.project.common.db;
-
+/**
+ * 数据库操作类型枚举
+ *
+ * @ClassName: DBOperation
+ * @Author WangQingYun
+ * @Date Created in 2019/8/29 14:06
+ * @Version 1.0
+ **/
 public enum DBOperation {
 
     EQ,     //等于

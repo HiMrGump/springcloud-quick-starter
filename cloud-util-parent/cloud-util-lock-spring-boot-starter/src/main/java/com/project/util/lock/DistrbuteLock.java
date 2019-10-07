@@ -1,7 +1,7 @@
 package com.project.util.lock;
 
 /**
- * 该接口描述分布式锁的基本功能
+ * 该接口定义了分布式锁的基本功能
  *
  * @ClassName: DistrbuteLock
  * @Author: WangQingYun

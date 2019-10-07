@@ -5,7 +5,7 @@ import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该接口继承了TkMybatis相关数据库操作
  *
  * @ClassName: MyBaseMapper
  * @Author: WangQingYun

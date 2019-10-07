@@ -14,7 +14,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 拓展oauth2的短信登陆方式，对接spring security
  *
  * @ClassName: SMSCodeTokenGranter
  * @Author: WangQingYun

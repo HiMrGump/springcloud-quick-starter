@@ -11,7 +11,7 @@ import tk.mybatis.mapper.annotation.Version;
 import javax.persistence.Table;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 用户表
  *
  * @ClassName: UserEntity
  * @Author: WangQingYun

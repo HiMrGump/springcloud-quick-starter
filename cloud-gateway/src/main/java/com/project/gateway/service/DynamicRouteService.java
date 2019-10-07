@@ -13,7 +13,12 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 /**
- * 动态路由服务
+ * 动态路由service类
+ *
+ * @ClassName: DynamicRouteScheduling
+ * @Author: WangQingYun
+ * @Date: Created in 2019/6/19 15:13
+ * @Version: 1.0
  */
 @Service
 public class DynamicRouteService implements ApplicationEventPublisherAware {

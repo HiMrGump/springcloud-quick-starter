@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 统一的分页工具
  *
  * @ClassName: PageHelper
  * @Author: WangQingYun

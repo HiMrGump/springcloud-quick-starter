@@ -5,7 +5,14 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
-
+/**
+ * IpUtils工具类
+ *
+ * @ClassName: FeignUtils
+ * @Author: WangQingYun
+ * @Date: Created in 2019/6/6 15:06
+ * @Version: 1.0
+ */
 public class IpUtils {
     /**
      * 获取本地ip

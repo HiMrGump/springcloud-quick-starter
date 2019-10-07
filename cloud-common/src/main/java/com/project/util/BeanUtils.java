@@ -3,7 +3,7 @@ package com.project.util;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * bean深复制工具
  *
  * @ClassName: BeanUtils
  * @Author: WangQingYun

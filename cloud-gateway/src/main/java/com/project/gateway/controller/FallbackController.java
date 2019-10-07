@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 服务降级返回
  *
  * @ClassName: FallbackController
  * @Author: WangQingYun

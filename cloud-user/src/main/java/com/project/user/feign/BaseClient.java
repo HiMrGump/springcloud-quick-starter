@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类定义了base服务feign调用接口
  *
  * @ClassName: DictClient
  * @Author: WangQingYun
@@ -19,7 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient(name = "cloud-base", fallbackFactory = BaseClientFallback.class,configuration = FeignConfig.class)
 @RequestMapping("/dict")
 public interface BaseClient {
-
+    /**
+     * 获取字典
+     * @param type 字典类型
+     * @return
+     */
     @GetMapping("/getByType/{type}")
     public ResponseResult getByType(@PathVariable("type") String type);
 }

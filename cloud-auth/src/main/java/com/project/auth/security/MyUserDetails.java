@@ -12,12 +12,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 /**
- * 扩展UserDetails信息 满足业务需求
+ *  封装spring security用户信息
  *
- * @author TerryYu
- * @date 2019-04-10
+ * @ClassName: MyUserDetails
+ * @Author: WangQingYun
+ * @Date: Created in 2019/5/21 10:50
+ * @Version: 1.0
  */
 @Data
 @NoArgsConstructor

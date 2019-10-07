@@ -7,7 +7,7 @@ import lombok.ToString;
 import java.util.List;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 用户DTO
  *
  * @ClassName: UserEntity
  * @Author: WangQingYun

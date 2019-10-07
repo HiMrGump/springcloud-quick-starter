@@ -7,7 +7,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类实现了用户角色的VO定义
  *
  * @ClassName: UserRoleVO
  * @Author: WangQingYun

@@ -6,7 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 过滤器模型
+ * 路由过滤器定义
+ *
+ * @ClassName: GatewayFilterDefinition
+ * @Author: WangQingYun
+ * @Date: Created in 2019/6/18 9:35
+ * @Version: 1.0
  */
 @Data
 public class GatewayFilterDefinition {

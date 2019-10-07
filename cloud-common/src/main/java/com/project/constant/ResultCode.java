@@ -2,7 +2,14 @@ package com.project.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
+/**
+ * 该类定义了controller统一返回的的状态码和描述
+ *
+ * @ClassName: RedisPrefixConstant
+ * @Author: WangQingYun
+ * @Date: Created in 2019/6/21 14:43
+ * @Version: 1.0
+ */
 @Getter
 @AllArgsConstructor
 public enum ResultCode {

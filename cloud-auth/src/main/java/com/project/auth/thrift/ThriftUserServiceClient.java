@@ -5,7 +5,7 @@ import io.ostenant.rpc.thrift.client.annotation.ThriftClient;
 import io.ostenant.rpc.thrift.client.common.ThriftClientAware;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ *  RPC调用用户模块
  *
  * @ClassName: ThriftUserServiceClient
  * @Author: WangQingYun

@@ -1,12 +1,13 @@
 package com.project.gateway.schedule;
 
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.project.gateway.model.GatewayFilterDefinition;
 import com.project.gateway.model.GatewayPredicateDefinition;
 import com.project.gateway.model.GatewayRouteDefinition;
 import com.project.gateway.service.DynamicRouteService;
-import com.project.util.DateUtils;
-import org.apache.commons.lang3.StringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
@@ -21,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 动态路由转换类
  *
  * @ClassName: DynamicRouteScheduling
  * @Author: WangQingYun
@@ -29,6 +30,7 @@ import java.util.List;
  * @Version: 1.0
  */
 @Component
+@Slf4j
 public class DynamicRouteScheduling {
 
     @Autowired
@@ -43,8 +45,8 @@ public class DynamicRouteScheduling {
     @Scheduled(cron = "*/60 * * * * ?")
     public void getDynamicRouteInfo() {
         try {
-            System.out.println("从redis动态获取路由: " + DateUtils.formatDate(new Date(),"yyyy-MM-dd HH:mm:ss"));
-                if (!StringUtils.isEmpty(resultRoutes)) {
+            log.debug("Dynamically update router from redis,print current time {}",DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss"));
+                if (!StrUtil.isEmpty(resultRoutes)) {
                     // 这里不能做清空原有路由的动作，变化中删除的路由需要通过指定ID来删除
                     List<GatewayRouteDefinition> list = JSON.parseArray(resultRoutes, GatewayRouteDefinition.class);
                     for (GatewayRouteDefinition definition : list) {

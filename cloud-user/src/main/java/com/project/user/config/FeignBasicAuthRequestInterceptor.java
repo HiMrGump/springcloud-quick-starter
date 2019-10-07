@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 在feign请求下游服务器时，需要添加该请求头
  *
- * @ClassName: FeignHeadConfiguration
+ * @ClassName: FeignBasicAuthRequestInterceptor
  * @Author: WangQingYun
  * @Date: Created in 2019/8/31 18:21
  * @Version: 1.0
@@ -30,11 +30,7 @@ public class FeignBasicAuthRequestInterceptor  implements RequestInterceptor {
                 while (headerNames.hasMoreElements()) {
                     String name = headerNames.nextElement();
                     String value = request.getHeader(name);
-                    /**
-                     * 遍历请求头里面的属性字段，将logId和token添加到新的请求头中转发到下游服务
-                     * */
                     requestTemplate.header(name, value);
-
                 }
             }
         }

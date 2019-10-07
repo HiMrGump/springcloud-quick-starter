@@ -18,10 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * webSecurity 权限控制类
- *
- * @author TerryYu
- * @date 2019-04-11 13:58
+ *  spring security配置
  */
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

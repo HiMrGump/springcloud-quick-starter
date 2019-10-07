@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类重写了gateway返回的错误码
  *
  * @ClassName: ErrorHandlerConfiguration
  * @Author: WangQingYun

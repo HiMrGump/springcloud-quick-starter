@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 任务调度的自动化配置
  *
  * @ClassName: QuartzScheduleConfig
  * @Author: WangQingYun

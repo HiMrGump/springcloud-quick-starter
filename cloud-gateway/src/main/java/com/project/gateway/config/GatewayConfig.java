@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类定义了忽略url的列表
  *
  * @ClassName: GatewayConfig
  * @Author: WangQingYun

@@ -3,9 +3,9 @@ package com.project.util;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * BCrypt工具类
  *
- * @ClassName: BCryptUtil
+ * @ClassName: BCryptUtils
  * @Author: WangQingYun
  * @Date: Created in 2019/6/9 16:37
  * @Version: 1.0

@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * oauth2授权服务器
  *
  * @ClassName: AuthorizationServerConfiguration
  * @Author: WangQingYun
@@ -74,6 +74,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Resource
     DataSource dataSource;
 
+    /**
+     * 配置基本client信息
+     * @param configurer
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
 
@@ -100,11 +105,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .refreshTokenValiditySeconds(FREFRESH_TOKEN_VALIDITY_SECONDS); //刷新token 时间 秒*/
     }
 
-    @Bean // 声明 ClientDetails实现
+    /**
+     * 配置client详情从jdbc获取
+     * @return
+     */
+    @Bean
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
     }
 
+    /**
+     * 对外endpoints配置
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore())

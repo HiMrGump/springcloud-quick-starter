@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author TerryYu
- * @date 2019-04-10
+ *  user服务feign调用
+ *
+ * @ClassName: UserServiceClient
+ * @Author: WangQingYun
+ * @Date: Created in 2019/5/21 10:50
+ * @Version: 1.0
  */
 @FeignClient(name = "cloud-user", fallbackFactory = UserClientFallback.class)
 @RequestMapping("/public")

@@ -6,7 +6,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 断言模型
+ * 路由断言定义
+ *
+ * @ClassName: GatewayPredicateDefinition
+ * @Author: WangQingYun
+ * @Date: Created in 2019/6/18 9:35
+ * @Version: 1.0
  */
 @Data
 public class GatewayPredicateDefinition {

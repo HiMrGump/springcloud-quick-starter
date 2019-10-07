@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类实现了字典相关操作对外接口
  *
  * @ClassName: DictController
  * @Author: WangQingYun
@@ -32,8 +32,8 @@ public class DictController extends BaseController<DictEntity> {
     }
 
     /**
-     * 根据type获取字典
-     * @param type
+     * 根据字典类型获取字典
+     * @param type 字典类型
      * @return
      */
     @GetMapping("/getByType/{type}")

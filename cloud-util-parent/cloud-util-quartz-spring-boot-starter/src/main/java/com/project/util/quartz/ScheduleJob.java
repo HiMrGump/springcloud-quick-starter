@@ -3,7 +3,7 @@ package com.project.util.quartz;
 import lombok.Data;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ * 该类定义了任务调度的基本属性
  *
  * @ClassName: ScheduleJob
  * @Author: WangQingYun
@@ -12,15 +12,24 @@ import lombok.Data;
  */
 @Data
 public class ScheduleJob {
-    private Long id; //ID
-    private String jobName; //任务名称
-    private String jobGroup; //任务分组
-    private String jobStatus; //任务状态
-    private Class jobClass;//任务执行方法
-    private String cronExpression; // cron 表达式
-    private String jobDescription; //任务描述
-    private String timeZoneId; // 时区
+    //主键
+    private Long id;
+    //任务名称
+    private String jobName;
+    //任务分组
+    private String jobGroup;
+    //任务状态
+    private String jobStatus;
+    //任务执行方法
+    private Class jobClass;
+    // cron 表达式
+    private String cronExpression;
+    //任务描述
+    private String jobDescription;
+    // 时区
+    private String timeZoneId;
     private Long startTime;
     private Long endTime;
-    private String state; //状态
+    //状态
+    private String state;
 }

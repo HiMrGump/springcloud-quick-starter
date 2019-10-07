@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * 该类实现了XXXX相关操作接口的具体功能
+ *  参数异常定义
  *
- * @ClassName: CodeErrorException
+ * @ClassName: ParameterErrorException
  * @Author: WangQingYun
  * @Date: Created in 2019/5/21 11:42
  * @Version: 1.0
