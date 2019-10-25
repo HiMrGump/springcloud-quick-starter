@@ -97,6 +97,7 @@ public abstract class MyBatisServiceImpl<E extends BaseEntity> implements BaseSe
             DBOperation operation = oper.getOperation();
             switch (operation){
                 case EQ:
+                    criteria.andEqualTo(oper.getFiledName(),oper.getValue()[0]);
                      break;
                 case GT:
                     criteria.andGreaterThan(oper.getFiledName(),oper.getValue()[0]);
@@ -126,6 +127,11 @@ public abstract class MyBatisServiceImpl<E extends BaseEntity> implements BaseSe
                         criteria.andLessThanOrEqualTo(oper.getFiledName(),oper.getValue()[1]);
                     }
                     break;
+                case ORDER_ASC:
+                    example.orderBy(oper.getFiledName()).asc();
+                    break;
+                case ORDER_DESC:
+                    example.orderBy(oper.getFiledName()).desc();
             }
         }
         return example;

@@ -17,5 +17,7 @@ public enum DBOperation {
     LIKE,   //模糊
     IN,     //范围内
     BETWEEN,//两个值之间
+    ORDER_ASC,//升序
+    ORDER_DESC,//降序
 
 }

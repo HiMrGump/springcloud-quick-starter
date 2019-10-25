@@ -48,9 +48,19 @@ public class DBHelper {
         if(val1 == null){
             return false;
         }
-        if(val1.getClass().getName() == "java.lang.String"){
+        if(val1.getClass().getName() == "java.lang.String"){ //当为null、undefined、-1都不加入
             String valStr1 = (String)val1;
-            if(StringUtils.isBlank(valStr1) || "null".equalsIgnoreCase(valStr1) || "undefined".equalsIgnoreCase(valStr1)){
+            if(StringUtils.isBlank(valStr1) || "null".equalsIgnoreCase(valStr1) || "undefined".equalsIgnoreCase(valStr1) || "-1".equalsIgnoreCase(valStr1)){
+                return false;
+            }
+        }else if(val1.getClass().getName() == "java.lang.Integer"){ //当为小于0的数不加入，-1一般在查找的时候，视为全部
+            Integer valInt1 = (Integer)val1;
+            if(valInt1 < 0){
+                return false;
+            }
+        }else if(val1.getClass().getName() == "java.lang.Long"){ //当为小于0的数不加入，-1一般在查找的时候，视为全部
+            Long valLong1 = (Long)val1;
+            if(valLong1 < 0){
                 return false;
             }
         }
