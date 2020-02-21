@@ -43,23 +43,24 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
             String smsCode = authenticationToken.getSmsCode();
             log.debug("SMS login,find params{mobile:{},smsCode:{}}",mobile,smsCode);
             if(!"888888".equals(smsCode)){
-                throw new BadCredentialsException("验证码错误");
+                throw new ValidateCodeException("验证码错误");
             }
 
             ThriftResponseResult thriftResponseResult = userServiceClient.client().getByMobile(mobile);
             Optional<UserDTO> userDTOOptional = ThriftUtils.parseObject(thriftResponseResult, UserDTO.class);
             if(!userDTOOptional.isPresent()){
-                throw new BadCredentialsException("找不到用户,请重试");
+                throw new UsernameNotFoundException("找不到用户,请重试");
             }
             //重新构建SmsCodeAuthenticationToken（已认证）
             SmsCodeAuthenticationToken authenticationResult = new SmsCodeAuthenticationToken( build(userDTOOptional.get()));
             authenticationResult.setDetails(authenticationToken.getDetails());
+            authenticationResult.setAuthenticated(true);
             return authenticationResult;
 
         }catch (TException e){
             e.printStackTrace();
         }
-        throw new BadCredentialsException("找不到用户,请重试");
+        throw new UsernameNotFoundException("找不到用户,请重试");
     }
 
 /**

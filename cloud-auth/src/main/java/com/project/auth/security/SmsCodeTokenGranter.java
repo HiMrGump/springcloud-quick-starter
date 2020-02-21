@@ -38,7 +38,7 @@ public class SmsCodeTokenGranter extends AbstractTokenGranter {
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-        String smsCode = parameters.get("sms_code");
+        String smsCode = parameters.get("vc");
         String mobile = parameters.get("mobile");
         Authentication authentication = new SmsCodeAuthenticationToken(mobile, smsCode);
         ((AbstractAuthenticationToken)authentication).setDetails(parameters);

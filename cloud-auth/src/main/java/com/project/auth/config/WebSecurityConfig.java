@@ -2,10 +2,13 @@ package com.project.auth.config;
 
 import com.alibaba.fastjson.JSON;
 import com.project.auth.security.MyUserDetailsService;
+import com.project.auth.security.MyWebResponseExceptionTranslator;
 import com.project.auth.security.SmsCodeAuthenticationProvider;
 import com.project.util.ResponseResult;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +16,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,7 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private PasswordEncoder passwordEncoder;
 
     @Resource
-    SmsCodeAuthenticationProvider codeAuthenticationProvider;
+    SmsCodeAuthenticationProvider smsCodeAuthenticationProvider;
+
 
     //供给oauth2.0使用
     @Override
@@ -78,12 +84,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
-        authManagerBuilder.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder);
-        authManagerBuilder.authenticationProvider(codeAuthenticationProvider);
+        //authManagerBuilder.userDetailsService(myUserDetailsService).passwordEncoder(passwordEncoder).;
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setHideUserNotFoundExceptions(false);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        daoAuthenticationProvider.setUserDetailsService(myUserDetailsService);
+        authManagerBuilder.authenticationProvider(daoAuthenticationProvider);
+        authManagerBuilder.authenticationProvider(smsCodeAuthenticationProvider);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }

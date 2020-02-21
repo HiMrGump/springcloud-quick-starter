@@ -1,4 +1,4 @@
-package com.project.util;
+package com.project.auth.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * ApplicationContext工具类
- * @ClassName: ApplicationContextUtil
  * @Author: WangQingYun
  * @Date: Created in 2019/4/22 16:45
  * @Version: 1.0
@@ -39,6 +38,7 @@ public class ApplicationContextUtil implements ApplicationContextAware {
      * @return
      */
     public static <T> T getBean(Class<T> clazz) {
+        System.out.println(ac);
         return ac.getBean(clazz);
     }
 

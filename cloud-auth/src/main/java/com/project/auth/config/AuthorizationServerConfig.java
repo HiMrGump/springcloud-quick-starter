@@ -2,12 +2,16 @@ package com.project.auth.config;
 
 import com.google.common.collect.Maps;
 import com.project.auth.security.MyUserDetails;
+import com.project.auth.security.MyWebResponseExceptionTranslator;
 import com.project.auth.security.SmsCodeTokenGranter;
+import com.project.util.ResponseResult;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
@@ -23,6 +27,9 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
+import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
@@ -34,6 +41,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -114,6 +122,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new JdbcClientDetailsService(dataSource);
     }
 
+    @Bean
+    public WebResponseExceptionTranslator webResponseExceptionTranslator() {
+        return new MyWebResponseExceptionTranslator();
+    }
+
     /**
      * 对外endpoints配置
      * @param endpoints
@@ -123,12 +136,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore())
                 .tokenGranter(tokenGranter())
+                .exceptionTranslator(webResponseExceptionTranslator())
                 .authenticationManager(authenticationManager)
-                .accessTokenConverter(accessTokenConverter())
-                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)  //支持GET  POST  请求获取token
+              //  .accessTokenConverter(accessTokenConverter())
+             //   .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)  //支持GET  POST  请求获取token
                 .tokenEnhancer(tokenEnhancerChain()) //拓展token
               //  .userDetailsService(userDetailsService) //必须注入userDetailsService否则根据refresh_token无法加载用户信息
-                .reuseRefreshTokens(true);  //开启刷新token
+
+                .reuseRefreshTokens(false);  //开启刷新token
     }
 
 

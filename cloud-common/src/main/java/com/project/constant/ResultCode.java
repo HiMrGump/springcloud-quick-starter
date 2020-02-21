@@ -13,6 +13,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum ResultCode {
+    LOGIN_NOTFOUND("100","找不到用户"),
+    LOGIN_DONTSHOW_VALIDATE("101","密码错误"),
+    LOGIN_NOTCOUNT_SHOW_VALIDATE("102","找不到用户,显示验证码"),
+    LOGIN_PASSWORDERROR_SHOW_VALIDATE("103","密码超出最大错误次数,显示验证码"),
+    LOGIN_VALIDATE_ERROR("104","验证码错误"),
+
     SUCCESS("200","请求成功"),
     PARAM_ERROR("400","参数错误"),
     UNAUTHORIZED("403","未授权"),
