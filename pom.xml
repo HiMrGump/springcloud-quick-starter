@@ -45,7 +45,7 @@
         <quartz.version>2.3.1</quartz.version>
         <rocketmq.version>2.0.2</rocketmq.version>
         <jackson.version>2.9.8</jackson.version>
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <mybatisplus.version>3.1.0</mybatisplus.version>
         <libthrift.version>0.12.0</libthrift.version>
         <spring.cloud.thrift.version>2.0.0</spring.cloud.thrift.version>
